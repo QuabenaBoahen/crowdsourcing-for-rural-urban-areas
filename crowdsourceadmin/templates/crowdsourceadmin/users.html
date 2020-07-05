@@ -1,0 +1,175 @@
+{% extends 'crowdsourceadmin/fragments/base.html' %}
+{% block title %} Admin | User {% endblock %}
+
+{% block content %}
+
+    <div id="wrapper">
+
+        {% include 'crowdsourceadmin/fragments/top-bar.html' %}
+
+        {% include 'crowdsourceadmin/fragments/left-side-bar.html' %}
+
+       <!-- ============================================================== -->
+		<!-- Start right Content here -->
+		<!-- ============================================================== -->
+		<div class="content-page">
+			<!-- Start content -->
+			<div class="content">
+				<div class="container">
+
+					<!-- Page-Title -->
+					<div class="row">
+                      {% include 'crowdsourceadmin/fragments/messages.html' %}
+						<div class="col-sm-12">
+                            <a href="#" data-toggle="modal" data-target="#myModal2" class="btn btn-primary add" ><i
+								class="fa fa-plus-square" aria-hidden="true"></i> New</a>
+							<ol class="breadcrumb pull-right">
+								<li><a href="#">Crowdsourcing for Rural Urban Areas</a></li>
+                                <li><a href="#">Admin Section</a></li>
+                                <li class="active">Users</li>
+							</ol>
+						</div>
+					</div>
+
+					<div class="panel">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="m-b-30"></div>
+								</div>
+							</div>
+							<div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
+							<form id="frmDisableAccount">
+								<table class="table table-bordered table-striped" id="datatable">
+									<thead>
+										<tr>
+											<th>Full Name</th>
+											<th>Username</th>
+											<th>Email</th>
+											<th>Active</th>
+											<th>Staff</th>
+											<th>Superuser</th>
+											<th>Date Joined</th>
+                                            <th>Last Login</th>
+											<th>Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+                                    {% for user in users %}
+										<tr>
+                                          <input type="hidden" value="{{ user.id }}" />
+                                          <td>{{ user.first_name }} {{ user.last_name }}</td>
+                                          <td>{{ user.username }}</td>
+                                          <td>{{ user.email }}</td>
+                                          <td>{{ user.is_active }}</td>
+                                          <td>{{ user.is_staff }}</td>
+                                          <td>{{ user.is_superuser }}</td>
+                                            {% load humanize %}
+                                          <td>{{ user.date_joined|naturalday }}</td>
+                                          <td>{{ user.last_login }}</td>
+                                          <td>
+                                              {% if not user.is_superuser %}
+                                              <a href="#" class="on-default update-user" data-balloon="Edit user details" data-balloon-pos="up"><i class="fa fa-edit"></i></a>
+											&nbsp;&nbsp</a>
+                                              {% endif %}
+                                          </td>
+                                        </tr>
+                                    {% endfor %}
+									</tbody>
+								</table>
+								</form>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!-- container -->
+
+			</div>
+			<!-- content -->
+        </div>
+
+      </div>
+
+  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title title" style="color: #07689F;">Add User</h4>
+      </div>
+      <br/>
+    <div class="container-fluid">
+          <form action="" method="post" enctype="multipart/form-data">
+         {% include 'crowdsourceadmin/fragments/form-fields.html' %}
+		    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i> Save</button>
+            </div>
+            </form>
+    </div>
+            </div>
+      </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+
+{% include 'crowdsourceadmin/fragments/footer.html' %}
+
+<script>
+  $(document).ready(function(){
+     $('#datatable').dataTable();
+
+ $("#datatable").on('click', '.update-user', function(){
+	var currentRow=$(this).closest('tr');
+	var id=currentRow.find("input:eq(0)").val();
+	var username=currentRow.find("td:eq(1)").text();
+	var active_status=currentRow.find("td:eq(4)").text();
+
+	//negate active status
+     function negate_active_status(is_user_active){
+         if(is_user_active==="True"){
+             return "False";
+         }else{
+             return "True";
+         }
+     }
+
+
+	bootbox.dialog({
+						title: "<span style='color: #07689F;'>Update " + username + "'s active status</span>",
+						  size: "medium",
+						  message: "Do you really want to change this user's active status from " + active_status + " to " + negate_active_status(active_status) + "?",
+                           buttons: {
+                            danger:{
+                                label: "No",
+                                className: "btn-danger"
+                            },
+                            success:{
+                                label: "Yes",
+                                className: "btn-primary",
+                                    callback: function(e){
+                                          e.preventDefault();
+                                            var token = '{{ csrf_token }}';
+					         	             $.ajax({
+                                                    headers: {"X-CSRFToken": token},
+                                                      type: 'POST',
+                                                      url: "{% url 'crowdsourceadmin:update_user_status'  user_pk=1 %}".replace(/1/, id.toString()),
+                                                      success: function (response) {
+                                                        //refresh page if request is successful
+                                                        window.location.href="{% url 'crowdsourceadmin:users' %}";
+                                                          },
+                                                      error: function (response) {
+                                                          //alert(response)
+                                                           }
+                                                      })
+                               }
+                         }
+	                }
+             });
+
+
+   });
+
+  });
+</script>
+{% endblock %}

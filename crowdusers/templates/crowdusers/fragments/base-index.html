@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>{% block title %} Crowdsourcing for Rural Urban Areas {% endblock %}</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bootstrap CSS CDN -->
+{% if not deployment %}
+<link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"/>
+{% endif %}
+{% load static %}
+{% if deployment %}
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'crowdusers/styles/s-a/bootstrap.min.css' %}"/>
+{% endif %}
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'crowdusers/styles/s-a/custom-css.css' %}"/>
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'crowdusers/styles/s-a/font-awesome.min.css' %}"/>
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'crowdusers/styles/dropzone.css' %}"/>
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'crowdusers/styles/login-ui.css' %}"/>
+
+<!-- SmartAdmin Styles : Caution! DO NOT change the order -->
+<!-- <link rel="stylesheet" type="text/css" media="screen" th:href="@{/styles/s-a/smartadmin-production-plugins.min.css"> -->
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'crowdusers/styles/s-a/smartadmin-production.min.css' %}"/>
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'crowdusers/styles/bootstrap-tabs/b4vtabs.min.css' %}"/>
+<style>
+    #dep-location {
+	position: relative;
+   width: 100%;
+   height: 300px;
+   background-color: grey;
+}
+
+
+    #map {
+	position: relative;
+   width: 100%;
+   height: 300px;
+   background-color: grey;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #212529;
+  color: white;
+  text-align: center;
+}
+</style>
+</head>
+<body id="top" style="background-color: #7C898B;">
+
+{% block content %} {% endblock %}
+
+</body>
+</html>

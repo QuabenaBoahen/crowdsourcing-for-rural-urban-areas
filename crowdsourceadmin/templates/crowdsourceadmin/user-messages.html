@@ -1,0 +1,110 @@
+{% extends 'crowdsourceadmin/fragments/base.html' %}
+{% block title %} Admin | Messages {% endblock %}
+
+{% block content %}
+
+    <div id="wrapper">
+
+        {% include 'crowdsourceadmin/fragments/top-bar.html' %}
+
+        {% include 'crowdsourceadmin/fragments/left-side-bar.html' %}
+
+       <!-- ============================================================== -->
+		<!-- Start right Content here -->
+		<!-- ============================================================== -->
+		<div class="content-page">
+			<!-- Start content -->
+			<div class="content">
+				<div class="container">
+
+					<!-- Page-Title -->
+					<div class="row">
+						<div class="col-sm-12">
+							<ol class="breadcrumb pull-right">
+								<li><a href="#">GhNewsHub</a></li>
+                                <li><a href="#">Admin Section</a></li>
+                                <li class="active">Messages</li>
+							</ol>
+						</div>
+					</div>
+
+					<div class="panel">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="m-b-30"></div>
+								</div>
+							</div>
+							<div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
+							<form id="frmDisableAccount">
+								<table class="table table-bordered table-striped" id="datatable">
+									<thead>
+										<tr>
+											<th>User's Full Name</th>
+											<th>Message Content</th>
+											<th>User's email</th>
+											<th>Sent Date</th>
+                                            <th>Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+                                    {% for msg in user_messages %}
+										<tr>
+                                        <input type="hidden" value="{{ msg.message_body }}" />
+                                          <td>{{ msg.user_full_name }}</td>
+                                          <td>{{ msg.message_body|truncatechars:40 }} {% if msg.message_body|length > 40 %}
+                                        <a href="#" class="on-default read-full-msg" data-balloon="Click to read full message" data-balloon-pos="up">read full message</a>
+                                          {% endif %}</td>
+                                          <td>{{ msg.user_email }}</td>
+                                            {% load humanize %}
+                                          <td>{{ msg.created_date|naturalday }}</td>
+                                           <td>
+                                         <a href="#" class="on-default" data-balloon="" data-balloon-pos="up"><i class="fa fa-edit"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+									</tbody>
+								</table>
+								</form>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!-- container -->
+
+			</div>
+			<!-- content -->
+        </div>
+
+      </div>
+
+{% include 'crowdsourceadmin/fragments/footer.html' %}
+
+<script>
+  $(document).ready(function(){
+     $('#datatable').dataTable();
+
+ $("#datatable").on('click', '.read-full-msg', function(){
+
+	var currentRow=$(this).closest('tr');
+	var full_msg=currentRow.find("input:eq(0)").val();
+	var user_full_name=currentRow.find("td:eq(0)").text();
+
+				bootbox.dialog({
+						title: "<span style='color: #07689F;'>" + user_full_name + " wrote: </span>",
+						  size: "medium",
+						  message: full_msg,
+                          buttons: {
+								success:{
+					         		label: "Close",
+					         		className: "btn-info"
+					         	}
+						}
+					});
+
+   })
+  });
+</script>
+
+{% endblock %}

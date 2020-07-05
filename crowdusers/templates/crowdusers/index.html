@@ -1,0 +1,278 @@
+{% extends 'crowdusers/fragments/base-index.html' %}
+{% block title %} Crowdsourcing for Rural Urban Areas - Home {% endblock %}
+{% block content %}
+<!-- ################################################################################################ -->
+	<!-- ################################################################################################ -->
+	<!-- ################################################################################################ -->
+	<!-- Top Background Image Wrapper -->
+	<div class="bgded overlay"
+		style="background-image: url('/crowdusers/static/crowdusers/images/demo/backgrounds/cs_b.jpg');">
+		<!-- ################################################################################################ -->
+        {% include 'crowdusers/fragments/nav-index.html' %}
+		<!-- ################################################################################################ -->
+		<!-- ################################################################################################ -->
+		<!-- ################################################################################################ -->
+		<div id="pageintro" class="hoc clear" style="background-color: inherit;">
+			<!-- ################################################################################################ -->
+			<div class="col-sm-12 col-lg-12 col-md-12">
+              <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <hr />
+          <hr />
+        </div>
+      </div>
+      <br/><br/>
+      <div class="row">
+        <div class="col-md-3">
+          <ul class="nav nav-tabs left-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" href="#lorem-left" data-toggle="tab">Map</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#ipsum-left" data-toggle="tab">Deployments</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"
+                href="#llanfairpwllgwyngyll-left"
+                title="Llanfair­pwllgwyngyll­gogery­chwyrn­drobwll­llan­tysilio­gogo­goch"
+                data-toggle="tab">Activity</a>
+            </li>
+            <br/><br/>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-md-9">
+          <div class="container">
+            <div class="tab-content">
+              <article class="tab-pane container active" id="lorem-left">
+                <h1>Deployment locations</h1><br/>
+                <section id="map">
+
+                </section><br/><br/>
+              </article>
+              <article class="tab-pane container" id="ipsum-left">
+                <h1>Deployments</h1>
+                <section>
+                    <div class="row">
+                  <div class="col-5">
+                  {% for deployment in deployments %}
+                 <div class="card" id="short-dep-description">
+                 <a href="#" style="text-decoration: none;">
+                  <div class="card-body">
+                      <p><span>published </span> <span>by {{ deployment.user.username }}</span></p>
+                      <p>
+                    <h6 class="card-subtitle mb-2 text-muted">via web</h6> <h6 class="card-subtitle mb-2 text-muted">6 days ago</h6>
+                      </p>
+                      <h3 class="card-title">{{ deployment.report_brief_description }}</h3>
+                       {% load admin_extras %}
+                      <input type="hidden" value="{{ deployment.report_nature|list_report_nature }}"/>
+                      <input type="hidden" value="{{ deployment.id }}"/>
+                      <p class="card-text" id="dep-full-desc-1">{{ deployment.report_full_description|truncatewords:15 }}</p>
+                  </div>
+                 </a>
+                </div><br/>
+                  {% endfor %}
+                    <div class="col-sm-2">
+               {% if deployments.has_other_pages %}
+                  <ul class="pagination pagination-lg">
+                    {% if deployments.has_previous %}
+                      <li class="page-item"><a href="?page={{ deployments.previous_page_number }}" class="page-link">Previous</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link"><span>Previous</span></a></li>
+                    {% endif %}
+                    {% for i in deployments.paginator.page_range %}
+                      {% if deployments.number == i %}
+                          <li class="page-item active"><a class="page-link"><span>{{ i }} <span class="sr-only">(current)</span></span></a></li>
+                      {% else %}
+                        <li class="page-item"><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
+                      {% endif %}
+                    {% endfor %}
+                    {% if deployments.has_next %}
+                      <li class="page-item"><a href="?page={{ deployments.next_page_number }}" class="page-link">Next</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link"><span>Next</span></a></li>
+                    {% endif %}
+                  </ul>
+                  {% endif %}
+                  </div>
+                  </div>
+                  <div class="col-7" id="dep-details">
+                   <div class="card row">
+                  <div class="card-body">
+                      <p><span>published </span> <span>by <i><span class="dep-user"></span></i></span></p>
+                      <p>
+                    <h6 class="card-subtitle mb-2 text-muted">via web</h6><h6 class="card-subtitle mb-2 text-muted">6 days ago</h6>
+                      </p>
+                      <h6>Title</h6>
+                      <h3 class="card-title dep-short-desc"></h3>
+                      <p>
+                      <h6>Description</h6>
+                      <span class="card-text dep-full-desc"></span>
+                      </p>
+                      <p>
+                          <h6>Nature of report/deployment</h6>
+                          <span class="dep-nature"></span>
+                      </p>
+                      <p>
+                         <h6>Source of this report/deployment</h6>
+                          <span class="dep-source"></span>
+                      </p>
+                       <p>
+                         <h6>How long has/did this report/deployment you are posting about last</h6>
+                          <span class="dep-time-frame"></span>
+                      </p>
+                       <p>
+                         <h6>Report/Deployment location</h6>
+                          <div id="dep-location"></div>
+                      </p>
+                       <p>
+                         <h6>Report/Deployment date and time</h6>
+                          <span class="dep-date-and-time"></span>
+                      </p>
+                       <p>
+                         <h6>Report/Deployment image(s)</h6>
+                          <img class="dep-images" width="400" height="170"/>
+                      </p><br/><br/>
+                  </div>
+                </div>
+                  </div>
+                   </div>
+                </section>
+              </article>
+              <article class="tab-pane container" id="llanfairpwllgwyngyll-left">
+                <h1>Activity</h1>
+                <section>
+                  <p><small>From Wikipedia, the free encyclopedia</small></p>
+                </section>
+                <section>
+                  <p>
+                    Llanfair­pwllgwyngyll­gogery­chwyrn­drobwll­llan­tysilio­gogo­goch (pronounced
+                    [ˌɬanvair­pʊɬˌɡwɨ̞ŋɡɨ̞ɬ­ɡɔˌɡɛrə­ˌχwərn­ˌdrɔbʊɬ­ˌɬan­təˌsɪljɔ­ˌɡɔɡɔ­ˈɡoːχ] in Welsh), official short
+                    form name Llanfairpwllgwyngyll (pronounced [ɬanˌvair puɬˈɡwɨ̞nɡɨ̞ɬ]), also spelled Llanfair
+                    Pwllgwyngyll, is a large village and local government community on the island of Anglesey in Wales.
+                    It is situated on the Menai Strait next to the Britannia Bridge and across the strait from Bangor.
+                    While the official short form name is used in official contexts, both the full name and shortened
+                    (Llanfairpwll or Llanfair PG) forms of the place name are used in various contexts.
+                  </p>
+                  <p>
+                    <a
+                      href="https://en.wikipedia.org/wiki/Llanfairpwllgwyngyll"
+                      target="_blank"
+                      title="Open Wikipedia article in a new tab."
+                      >Full article &gt;</a
+                    >
+                  </p>
+                </section>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+       </div>
+			</div>
+			<!-- ################################################################################################ -->
+		</div>
+		<!-- ################################################################################################ -->
+	</div>
+	<!-- End Top Background Image Wrapper -->
+{% include 'crowdusers/fragments/footer-index.html' %}
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Popper.JS -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+      integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Bootstrap JS -->
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+      integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script>
+  $(document).ready(function(){
+
+   $("#dep-details").hide();
+
+$("#short-dep-description a").click( function(){
+
+    let dep_pk = $(this).find('input:last').val();
+    let dep_nature = $(this).find('input:first').val();
+
+    $.ajax({
+       method: 'get',
+       url: "{% url 'crowdusers:single_deployment_details' dep_pk=1 %}".replace(/1/, dep_pk.toString()),
+       success: function (response) {
+
+           $("#dep-details").show();
+
+          $(".dep-user").text(response.data.user.username);
+          $(".dep-short-desc").text(response.data.report_brief_description);
+          $(".dep-full-desc").text(response.data.report_full_description);
+          $(".dep-nature").text(dep_nature);
+          $(".dep-source").text(response.data.reporter_background);
+          $(".dep-time-frame").text(response.data.report_time_frame);
+          $(".dep-date-and-time").text(response.data.report_date + ", " + response.data.report_time);
+
+          _initMap(response.data.latitude, response.data.longitude);
+          $(".dep-images").attr("src", response.images.file);
+
+       },
+       error: function (response) {
+           //console.log(response["responseJSON"]["error"])
+       }
+    })
+
+    });
+  });
+  </script>
+<script type="text/javascript">
+    function _initMap(latitude, longitude) {
+        var currentLocation = {lat: Number(latitude), lng: Number(longitude)};
+        var map = new google.maps.Map(document.getElementById('dep-location'), {
+            zoom: 13,
+            center: currentLocation,
+            mapTypeId: 'roadmap'
+        });
+
+        var marker = new google.maps.Marker({
+										position : currentLocation,
+										map : map
+									});
+
+    }
+ </script>
+ <script type="text/javascript">
+    function initMap() {
+        var _currentLocation = {lat: Number(53.0919), lng: Number(-2.3848)};
+        var _map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 13,
+            center: _currentLocation,
+            mapTypeId: 'roadmap'
+        });
+
+        var _marker = new google.maps.Marker({
+        position: _currentLocation
+     });
+
+        _marker.setMap(_map);
+
+    }
+ </script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtZeGCdqb5KqAG5ROpf1d6oUdAVwzTpyc&callback=initMap">
+   </script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtZeGCdqb5KqAG5ROpf1d6oUdAVwzTpyc&callback=_initMap">
+   </script>
+{% endblock %}

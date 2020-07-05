@@ -1,0 +1,66 @@
+		<!-- ========== Left Sidebar Start ========== -->
+		<div class="left side-menu">
+                     <div class="sidebar-inner slimscrollleft">
+                           <div class="user-details">
+                        <div class="pull-left">
+                            <img src="{{ MEDIA_URL }}/media/images/avatar-1.jpg" alt="user-img" class="thumb-sm img-circle" />
+                        </div>
+                         <div class="user-info">
+                            <div class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <span>{{request.user.username}}</span> <span class="caret"></span></a>
+                                <br/>
+                                <ul class="dropdown-menu">
+                                   <!--   <li><a href="javascript:void(0)"><i class="md md-vpn-key"></i> Reset Pasword</a></li>
+                                         <li><a href="lock-screen.php"><i class="md md-lock"></i> Lock screen</a></li> -->
+                                        <li><a href="{% url 'logout' %}"><i class="zmdi zmdi-power zmdi-hc-lg"></i> Logout</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- <p class="text-muted m-0"><span sec:authentication="authorities">Role </span></p> -->
+                        </div>
+                    </div>
+                           <!--- Divider -->
+                           <div id="sidebar-menu">
+                                  <ul>
+                                         <li><a href="{% url 'crowdsourceadmin:index' %}" class="waves-effect"><i
+                                                       class="zmdi zmdi-view-dashboard" aria-hidden="true"></i> <span>Dashboard
+                                                </span></a></li>
+                                            <li class="has_sub"><a href="#" class="waves-effect"><i
+                                                       class="zmdi zmdi-collection-item"></i><span>Deployment </span><span
+                                                       class="pull-right"><i class="zmdi zmdi-caret-down zmdi-hc-lg"></i></span></a>
+                                                <ul class="list-unstyled">
+                                                <li><a href="{% url 'crowdsourceadmin:deployments' %}" class="waves-effect">Created Deployments</a></li>
+                                                {% load admin_extras %}
+                                                {% if request.user|has_group:'Basic Admin' %}
+                                                <li><a href="" class="waves-effect">Categories</a></li>
+                                                <li><a href="" class="waves-effect">Messages</a></li>
+                                                <li><a href="" class="waves-effect">Video Section Details</a></li>
+                                                {% endif %}
+                                                </ul>
+                                                </li>
+                                              {% if request.user.is_superuser %}
+                                              <li class="has_sub"><a href="#" class="waves-effect"><i
+                                                       class="zmdi zmdi-accounts-list"></i><span>User Management </span><span
+                                                       class="pull-right"><i class="zmdi zmdi-caret-down zmdi-hc-lg"></i></span></a>
+                                                <ul class="list-unstyled">
+                                                <li><a href="{% url 'crowdsourceadmin:users' %}" class="waves-effect">All Users </a></li>
+                                                </ul>
+                                               </li>
+                                              {% endif %}
+                                      {% if request.user|has_group:'Basic Admin' %}
+                                      <li class="has_sub"><a href="#" class="waves-effect"><i
+                                                       class="zmdi zmdi-time"></i><span>Cron </span><span
+                                                       class="pull-right"><i class="zmdi zmdi-caret-down zmdi-hc-lg"></i></span></a>
+                                                <ul class="list-unstyled">
+                                                <li><a href="" class="waves-effect">Cron Jobs </a></li>
+                                                </ul>
+                                       </li>
+                                      {% endif %}
+                                  </ul>
+                                  <div class="clearfix"></div>
+                           </div>
+                           <div class="clearfix"></div>
+                     </div>
+              </div>
+		<!-- Left Sidebar End -->

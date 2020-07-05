@@ -1,0 +1,149 @@
+{% extends 'crowdsourceadmin/fragments/base.html' %}
+{% block title %} Admin | Categories {% endblock %}
+
+{% block content %}
+
+    <div id="wrapper">
+
+        {% include 'crowdsourceadmin/fragments/top-bar.html' %}
+
+        {% include 'crowdsourceadmin/fragments/left-side-bar.html' %}
+
+       <!-- ============================================================== -->
+		<!-- Start right Content here -->
+		<!-- ============================================================== -->
+		<div class="content-page">
+			<!-- Start content -->
+			<div class="content">
+				<div class="container">
+
+					<!-- Page-Title -->
+					<div class="row">
+                      {% include 'crowdsourceadmin/fragments/messages.html' %}
+						<div class="col-sm-12">
+                            <a href="#" data-toggle="modal" data-target="#myModal2" class="btn btn-primary add" ><i
+								class="fa fa-plus-square" aria-hidden="true"></i> New</a>
+							<ol class="breadcrumb pull-right">
+								<li><a href="#">GhNewsHub</a></li>
+                                <li><a href="#">Admin Section</a></li>
+                                <li class="active">Categories</li>
+							</ol>
+						</div>
+					</div>
+
+					<div class="panel">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="m-b-30"></div>
+								</div>
+							</div>
+							<div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
+							<form id="frmDisableAccount">
+								<table class="table table-bordered table-striped" id="datatable">
+									<thead>
+										<tr>
+											<th>Name</th>
+											<th>Published</th>
+											<th>User</th>
+											<th>Created date</th>
+											<th>Modified date</th>
+                                            <th>No. of Posts</th>
+											<th>Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+                                    {% for category in categories %}
+										<tr>
+                                          <input type="hidden" value="{{ category.id }}" />
+                                          <td>{{ category.name|truncatechars:40 }}</td>
+                                          <td>{{ category.is_published }}</td>
+                                          <td>{{ category.user }}</td>
+                                            {% load humanize %}
+                                          <td>{{ category.created_date|naturalday }}</td>
+                                          <td>{{ category.modified_date|naturalday }}</td>
+                                          <td>{{ category.post_set.count }}</td>
+                                          <td>
+                                              <a href="#" class="on-default update-category" data-balloon="Edit category details" data-balloon-pos="up"><i class="fa fa-edit"></i></a>
+											&nbsp;&nbsp;<a href="#" class="on-default" data-toggle="modal"
+												data-balloon="Delete category" data-balloon-pos="left">
+                                                  <i class="fa fa-trash-o"></i>
+                                              </a>
+                                          </td>
+                                        </tr>
+                                    {% endfor %}
+									</tbody>
+								</table>
+								</form>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!-- container -->
+
+			</div>
+			<!-- content -->
+        </div>
+
+      </div>
+
+  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title title" style="color: #07689F;">Add Category</h4>
+      </div>
+      <br/>
+    <div class="container-fluid">
+          <form action="{% url 'crowdsourceadmin:persist_category' %}" method="post" enctype="multipart/form-data">
+         {% include 'crowdsourceadmin/fragments/form-fields.html' %}
+		    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i> Save</button>
+            </div>
+            </form>
+    </div>
+            </div>
+      </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+
+{% include 'crowdsourceadmin/fragments/footer.html' %}
+
+<script>
+  $(document).ready(function(){
+     $('#datatable').dataTable();
+
+ $("#datatable").on('click', '.update-category', function(){
+	var currentRow=$(this).closest('tr');
+	var id=currentRow.find("input:eq(0)").val();
+
+      /*
+       send a get request to get the category instance for the clicked category and populate the fields
+       so user can edit the editable ones
+       */
+
+      $.ajax({
+          type: 'GET',
+          url: "{% url 'crowdsourceadmin:get_category_instance' category_pk=1 %}".replace(/1/, id.toString()),
+          success: function (response) {
+              if(response.status === "404"){
+                  alert("Error: " + response.message)
+              }else {
+                  $(".title").text("Update Category");
+
+                  $("div#form-fields").html(response);
+                  $("#myModal2").modal('show');
+
+              }
+          },
+          error: function (response) {
+              //alert(response)
+            }
+      })
+   });
+  });
+</script>
+{% endblock %}

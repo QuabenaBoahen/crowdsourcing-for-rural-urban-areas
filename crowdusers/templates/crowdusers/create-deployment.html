@@ -1,0 +1,466 @@
+{% extends 'crowdusers/fragments/base-index.html' %}
+{% block title %} Crowdsourcing for Rural Urban Areas - About Us {% endblock %}
+
+{% block content %}
+{% include 'crowdusers/fragments/nav.html' %}
+
+	<!-- MAIN CONTENT -->
+	<div id="content">
+		<!-- widget grid -->
+		<section id="widget-grid" class="">
+
+			<!-- row -->
+			<div class="row">
+
+				<!-- NEW WIDGET START -->
+				<article
+					class="col-md-offset-2 col-sm-10 col-md-10 col-lg-8 col-lg-offset-2">
+
+                      {% include 'crowdusers/fragments/messages.html' %}
+					<!-- Widget ID (each widget will need unique ID)-->
+					<div class="jarviswidget jarviswidget-color-darken" id="wid-id-0"
+						data-widget-editbutton="false" data-widget-deletebutton="false">
+						<!-- widget options:
+								usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+				
+								data-widget-colorbutton="false"
+								data-widget-editbutton="false"
+								data-widget-togglebutton="false"
+								data-widget-deletebutton="false"
+								data-widget-fullscreenbutton="false"
+								data-widget-custombutton="false"
+								data-widget-collapsed="true"
+								data-widget-sortable="false"
+				
+								-->
+						<header class="text-center">
+							<h2>Create Your Deployment In Three Easy Steps</h2>
+						</header>
+
+						<!-- widget div-->
+						<div>
+
+							<!-- widget edit box -->
+							<div class="jarviswidget-editbox">
+								<!-- This area used as dropdown edit box -->
+
+							</div>
+							<!-- end widget edit box -->
+
+							<!-- widget content -->
+							<div class="widget-body">
+
+								<div class="row">
+									<form id="wizard-1" novalidate="novalidate" enctype="multipart/form-data" method="post">
+										<div id="bootstrap-wizard-1"
+											class="col-sm-12 col-md-12 col-lg-12">
+											<div class="form-bootstrapWizard">
+												<ul class="bootstrapWizard form-wizard">
+													<li class="active" data-target="#step1"><a
+														href="#tab1" data-toggle="tab"> <span class="step">1</span>
+															<span class="title">Brief Details About Report</span>
+													</a></li>
+													<li data-target="#step2"><a href="#tab2"
+														data-toggle="tab"> <span class="step">2</span> <span
+															class="title">Report Location</span>
+													</a></li>
+													<li data-target="#step3"><a href="#tab3"
+														data-toggle="tab"> <span class="step">3</span> <span
+															class="title">Time Frame and Media</span>
+													</a></li>
+													<li data-target="#step4"><a href="#tab4"
+														data-toggle="tab"> <span class="step">4</span> <span
+															class="title">Save Deployment/Report</span>
+													</a></li>
+												</ul>
+												<div class="clearfix"></div>
+											</div>
+											<div class="tab-content">
+												<div class="tab-pane active" id="tab1">
+													<br> <br>
+													<h3>
+														<strong>Step 1 </strong> - Basic Details About Report
+													</h3>
+
+													<br>
+													<div class="form-group">
+														<div class="col-lg-12 col-md-12 col-sm-12">
+															<label class="col-md-12 col-lg-3">Brief
+																Description of Report</label>
+															<div class="col-md-12 col-lg-9 col-sm-12">
+																<input class="form-control input-lg"
+																	placeholder="A very brief description of the nature of the report"
+																	type="text" name="nameofreport" id="nameofreport" />
+															</div>
+														</div>
+													</div>
+
+													<div class="form-group">
+														<div class="col-lg-12">
+															<br>
+															<div class="alert alert-info fade in">
+																<button class="close" data-dismiss="alert">×</button>
+																<i class="fa-fw fa fa-info"></i><strong>Info!</strong>
+																Please check all options that apply to your deployment.
+															</div>
+															<label class="col-md-2 col-lg-3 control-label">Nature
+																of Report</label>
+															<div class="col-md-10 col-lg-9">
+																<div class="form-group">
+																	<div class="col-md-10">
+																		<div class="checkbox form-check-inline">
+                                                                            {% for nature in report_nature %}
+                                                                          <div class="form-check">
+                                                                          <input class="form-check-input natureofreport" type="checkbox" name="natureofreport" value="{{ nature.id }}" />
+                                                                          <label class="form-check-label" for="defaultCheck1">
+                                                                           {{ nature.name }}
+                                                                          </label>
+                                                                        </div>
+                                                                         {% endfor %}
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<div class="row">
+														<div class="col-sm-12">
+															<div class="form-group">
+																<label for="comment">Describe your report:</label>
+																<textarea class="form-control" rows="5"
+																	placeholder="Please give a detailed description of the report"
+																	name="reportdescription" id="reportdescription"></textarea>
+															</div>
+														</div>
+
+
+														<div class="form-group">
+															<div class="col-lg-12">
+																<label class="col-md-2 col-lg-3 control-label">How
+																	did you learn about this Report</label>
+																<div class="col-md-10 col-lg-9">
+																	<div class="form-group">
+																		<div class="col-md-10">
+																			<div class="radio">
+																				<label> <input type="radio" name="reporter" value="Victim">
+																					Victim
+																				</label>
+																			</div>
+																			<div class="radio">
+																				<label> <input type="radio" name="reporter" value="Witness">
+																					Witness
+																				</label>
+																			</div>
+																			<div class="radio">
+																				<label> <input type="radio" name="reporter" value="Media">
+																					Media
+																				</label>
+																			</div>
+																			<div class="radio">
+																				<label> <input type="radio" name="reporter" value="Other">
+																					Other
+																				</label>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+
+														<div class="row" style="display:none;" id="otherreporter">
+															<div class="col-sm-12">
+																<div class="form-group">
+																	<br> <label class="col-md-3 control-label">Please specify how you learned 
+																	about this report</label>
+																	<div class="col-md-9">
+																		<input class="form-control input-lg bopc-report" type="text"
+																			name="bopc-report" id="bopc-report">
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+
+												</div>
+												<div class="tab-pane" id="tab2">
+													<br>
+													<br>
+													<h3>
+														<strong>Step 2</strong> - Location of Report
+													</h3>
+
+													<div class="col-sm-4" id="map"></div>
+
+													<div class="form-group">
+														<div class="col-lg-12">
+                                                            <br>
+															<div class="alert alert-info fade in">
+																<button class="close" data-dismiss="alert">×</button>
+																<i class="fa-fw fa fa-info"></i><strong>Info!</strong>
+																Please enter your coordinates manually if your deployment is not in your current location.
+															</div>
+															<br>
+															<div class="col-lg-6">
+																<label class="col-md-2 col-lg-4 control-label">Latitude</label>
+																<div class="col-md-10 col-lg-8">
+																	<div class="form-group">
+																		<div class="col-md-10">
+																			<input class="form-control input-lg" type="text"
+																				name="latitude" id="latitude">
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="col-lg-6">
+																<label class="col-md-2 col-lg-4 control-label">Longitude</label>
+																<div class="col-md-10 col-lg-8">
+																	<div class="form-group">
+																		<div class="col-md-10">
+																			<input class="form-control input-lg" type="text"
+																				name="longitude" id="longitude">
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<div class="row">
+														<div class="form-group">
+															<div class="col-lg-12">
+																<br>
+																<div class="col-lg-6">
+																	<label class="col-md-2 col-lg-4 control-label">Report
+																		date</label>
+																	<div class="col-md-10 col-lg-8">
+																		<div class="form-group">
+																			<div class="col-md-10">
+																				<input class="form-control input-lg" type="text"
+																					name="reportdate" id="reportdate">
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="col-lg-6">
+																	<label class="col-md-2 col-lg-4 control-label">Report
+																		time</label>
+																	<div class="col-md-10 col-lg-8">
+																		<div class="form-group">
+																			<div class="col-md-10">
+																				<input class="form-control input-lg" type="time"
+																					name="reporttime" id="reporttime">
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="tab-pane" id="tab3">
+													<br>
+													<br>
+													<h3>
+														<strong>Step 3</strong> - Time Frame and Related Media
+														Links
+													</h3>
+													<div class="row">
+														<div class="form-group">
+															<br>
+                                                             <br>
+															<div class="alert alert-info fade in">
+																<button class="close" data-dismiss="alert">×</button>
+																<i class="fa-fw fa fa-info"></i><strong>Info!</strong>
+																Please specify how long this report has lasted prior to the time of this report e.g 3 hours ago.
+															</div>
+															<div class="col-lg-12 col-md-12">
+																<label class="col-md-12 col-lg-4">Time
+																	frame of this Report</label>
+																<div class="col-md-12 col-lg-8">
+																	<input class="form-control input-lg" type="text"
+																		name="tframeofreport" id="tframeofreport" placeholder="How long did this situation you're reporting about last?">
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<div class="row">
+														<div class="form-group">
+															<div class="col-lg-12 col-md-12">
+																<br> <label
+																	class="col-md-12 col-lg-4 control-label">Any
+																	Response from any Body Yet?</label>
+																<div class="col-md-12 col-lg-2 input-group">
+																	<span class="form-group"> 
+																	<span class="onoffswitch"> <input type="checkbox"
+																			name="responsefrombodiesval" class="onoffswitch-checkbox"
+																			id="responsefrombodiesval"> <label class="onoffswitch-label"
+																			for="responsefrombodiesval"><span class="onoffswitch-inner" 
+																				data-swchon-text="YES" data-swchoff-text="NO"></span>
+																				<span class="onoffswitch-switch"></span>
+																		</label>
+																	</span>
+																	</span>
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<div class="row" style="display:none;" id="responsefrombodies">
+														<div class="form-group">
+															<div class="col-lg-12 col-md-12">
+																<br>
+																<div class="col-md-12 col-lg-12 input-group">
+																	<div class="form-group">
+																		<label for="comment">Please specify the
+																			body/bodies that have responded to this report below</label>
+																		<div class="alert alert-info fade in">
+																			<button class="close" data-dismiss="alert">×</button>
+																			<i class="fa-fw fa fa-info"></i> <strong>Info!</strong>
+																			For example by police; local, municipal, provincial,
+																			national leaders; local, international NGOs, etc.
+																		</div>
+																		<textarea class="form-control" rows="3"
+																			placeholder="Specify the bodies separated by commas (,) e.g Police, Fire Service, etc"
+																			name="responsebodies" id="responsebodies"></textarea>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<div class="row">
+													<!-- <br>
+													<input type="file" name="files" multiple/> -->
+														<br>
+                                                        <button type="button" class="btn btn-primary js-upload-photos">
+                                                      <span class="glyphicon glyphicon-cloud-upload"></span>
+                                                            Click to start adding Images to this deployment
+                                                        </button>
+
+                                                       {% comment %} <div class="well text-muted text-center" style="padding-top: 4rem; padding-bottom: 4rem;">
+                                                      <span class="glyphicon glyphicon-arrow-down" style="font-size: 4rem;"></span>
+                                                      <h3>Drop Photos Here to Upload</h3>
+                                                        </div>{% endcomment %}
+                                                        {# 2. FILE INPUT TO BE USED BY THE PLUG-IN #}
+                                                        {% load crowdusers_extras %}
+                                                       <input id="fileupload" type="file" name="file" multiple
+                                                       style="display: none;"
+                                                       data-url="{% url 'crowdusers:persist_deployment_images' rand_deployment_number=10000|random_integer:99999 %}"
+                                                       data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'/>
+
+                                                        {# 3. TABLE TO DISPLAY THE UPLOADED PHOTOS #}
+                                                        <table id="gallery" class="table table-bordered">
+                                                          <thead>
+                                                            <tr>
+                                                              <th> Images related to this deployment </th>
+                                                            </tr>
+                                                          </thead>
+                                                          <tbody>
+                                                              <tr>
+                                                                <td><a href="#"></a></td>
+                                                              </tr>
+                                                          </tbody>
+                                                        </table>
+														<br>
+													</div>
+													
+													<div class="row">
+														<div class="form-group">
+															<br>
+															<div class="col-lg-12 col-md-12">
+																<label class="col-md-12 col-lg-4 control-label">Video Link</label>
+																<div class="col-md-12 col-lg-8">
+																	<input class="form-control input-lg" type="text" 
+																	placeholder="E.g https://www.youtube.com/watch?v=xC7hJopVnFw"
+																		name="videolink" id="videolink">
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="tab-pane" id="tab4">
+													<br>
+													<br>
+													<br>
+													<h1 class="text-center text-success">
+														<strong><i class="fa fa-check fa-lg"></i>
+															Complete</strong>
+													</h1>
+													<h4 class="text-center">Click submit to save your
+														Report/Deployment</h4>
+													<br> <br>
+												</div>
+
+												<div class="form-actions">
+													<div class="row">
+														<div class="col-sm-12">
+															<ul class="pager wizard no-margin">
+																<!--<li class="previous first disabled">
+																		<a href="javascript:void(0);" class="btn btn-lg btn-default"> First </a>
+																		</li>-->
+																<li class="previous disabled"><a
+																	href="javascript:void(0);"
+																	class="btn btn-lg btn-default"> Previous </a></li>
+																<!--<li class="next last">
+																		<a href="javascript:void(0);" class="btn btn-lg btn-primary"> Last </a>
+																		</li>-->
+																<li class="next"><a href="javascript:void(0);"
+																	class="btn btn-lg txt-color-darken"> Next </a></li>
+																		<li style="float:right;" class="finish">
+															<a id="submit-btn" href="javascript:void(0);" class="btn btn-lg   txt-color-darken">Submit</a>
+														                </li>
+															</ul>
+														</div>
+													</div>
+												</div>
+												<br/>
+												<br/>
+                                                <br/>
+
+											</div>
+										</div>
+									</form>
+								</div>
+
+							</div>
+							<!-- end widget content -->
+
+						</div>
+						<!-- end widget div -->
+
+					</div>
+					<!-- end widget -->
+
+				</article>
+				<!-- WIDGET END -->
+
+			</div>
+
+			<!-- end row -->
+
+		</section>
+		<!-- end widget grid -->
+
+	</div>
+	<!-- END MAIN CONTENT -->
+
+    <div class="modal fade" id="modal-progress" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Uploading...</h4>
+      </div>
+      <div class="modal-body">
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+{% include 'crowdusers/fragments/footer-index.html' %}
+{% include 'crowdusers/fragments/deployment-scripts.html' %}
+{% endblock %}

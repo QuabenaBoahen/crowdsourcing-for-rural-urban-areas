@@ -1,0 +1,218 @@
+{% extends 'crowdsourceadmin/fragments/base.html' %}
+{% block title %} Admin | Posts {% endblock %}
+
+{% block content %}
+
+    <div id="wrapper">
+
+        {% include 'crowdsourceadmin/fragments/top-bar.html' %}
+
+        {% include 'crowdsourceadmin/fragments/left-side-bar.html' %}
+
+       <!-- ============================================================== -->
+		<!-- Start right Content here -->
+		<!-- ============================================================== -->
+		<div class="content-page">
+			<!-- Start content -->
+			<div class="content">
+				<div class="container">
+
+					<!-- Page-Title -->
+					<div class="row">
+                      {% include 'crowdsourceadmin/fragments/messages.html' %}
+						<div class="col-sm-12">
+							<ol class="breadcrumb pull-right">
+								<li><a href="#">Crowdsourcing for Rural Urban Areas</a></li>
+                                <li><a href="#">Admin Section</a></li>
+                                <li class="active">Deployments</li>
+							</ol>
+						</div>
+					</div>
+
+					<div class="panel">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="m-b-30"></div>
+								</div>
+							</div>
+							<div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
+							<form id="frmDisableAccount">
+								<table class="table table-bordered table-striped" id="datatable">
+									<thead>
+										<tr>
+											<th>Nature of Report</th>
+											<th>Report Description</th>
+											<th>Total Views</th>
+											<th>Actual Date of Report</th>
+											<th>Report Time</th>
+                                            <th>Date Published</th>
+											<th>Report Time Frame</th>
+											<th>Video Link</th>
+											<th>Added By</th>
+											<th>Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+                                    {% for deployment in deployments %}
+										<tr>
+                                          <input type="hidden" value="{{ deployment.id }}" />
+                                          <input type="hidden" value="{{ deployment.report_full_description|title }}" />
+                                         {% load admin_extras %}
+                                          <td>{{ deployment.report_nature|list_report_nature }}</td>
+                                          <td>{{ deployment.report_full_description|truncatechars:40|title }}
+                                              {% if deployment.report_full_description|length > 40 %} <a href="#" class="read-full-description">view full description</a>{% endif %}</td>
+                                          <td>{{ deployment.report_views }}</td>
+                                          <td>{{ deployment.report_date }}</td>
+                                          <td>{{ deployment.report_time }}</td>
+                                          <td>{{ deployment.created_date }}</td>
+                                          <td>{{ deployment.report_time_frame }}</td>
+                                            <td>{% if deployment.report_video_link|length < 1 %} No video link for this deployment {% else %}
+                                                <a href="{{ deployment.report_video_link }}" target="_blank">{{ deployment.report_video_link }}</a> {% endif %}</td>
+										  <td>{{ deployment.user.username }}</td>
+                                          <td>
+                                              <a href="#" class="on-default update-post" data-balloon="Edit post details" data-balloon-pos="up"><i class="fa fa-edit"></i></a>
+                                              {% if post.comment_set.count > 0 %}&nbsp;
+                                              <a href="" class="on-default" data-balloon="View comments" data-balloon-pos="up"><i class="fa fa-eye"></i></a>
+											&nbsp;&nbsp;{% endif %}
+                                              <a href="#" class="on-default" data-toggle="modal"
+												data-balloon="Delete post" data-balloon-pos="left">
+                                                  <i class="fa fa-trash-o"></i>
+                                              </a>
+                                          </td>
+                                        </tr>
+                                    {% endfor %}
+									</tbody>
+								</table>
+								</form>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!-- container -->
+
+			</div>
+			<!-- content -->
+        </div>
+
+      </div>
+
+  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title title" style="color: #07689F;">Add Post</h4>
+      </div>
+      <br/>
+    <div class="container-fluid">
+          <form action="" method="post" enctype="multipart/form-data">
+             <div class="row" id="form-fields">
+             {% csrf_token %}
+    <input type="hidden" value="{{ form.instance.id }}" name="id"/>
+           <div class="invisible">{{ form.user }}</div>
+            <div class="form-group col-4">
+                <label class="col-8">Title</label>
+                {{ form.title }}
+            </div>
+            <div class="form-group col-4">
+                <label class="col-8">Short Body Text</label>
+                {{ form.short_body_text }}
+            </div>
+            <div class="form-group col-4">
+                <label class="col-8">Body</label>
+                {{ form.body }}
+            </div>
+           <div class="form-group col-4">
+                <label class="col-8">Is Published</label>
+                {{ form.is_published }}
+            </div>
+            <div class="form-group col-4">
+                <label class="col-8">Is Reviewed</label>
+                {{ form.is_reviewed }}
+            </div>
+            <div class="form-group col-4">
+                <label class="col-8">Is Featured</label>
+                {{ form.is_featured }}
+            </div>
+              <div class="form-group col-4">
+                <label class="col-8">Is Global Post</label>
+                {{ form.is_global_post }}
+            </div>
+            <div class="form-group col-4">
+                <label class="col-8">Post Category</label>
+                {{ form.category }}
+            </div>
+            <div class="form-group col-4">
+                <label class="col-8">Image</label>
+                {{ form.image_file }}
+            </div>
+            </div>
+		    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i> Save</button>
+            </div>
+            </form>
+    </div>
+            </div>
+      </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+
+{% include 'crowdsourceadmin/fragments/footer.html' %}
+
+<script>
+  $(document).ready(function(){
+     $('#datatable').dataTable();
+
+  $("#datatable").on('click', '.read-full-description', function(){
+
+	var currentRow=$(this).closest('tr');
+	var full_description=currentRow.find("input:eq(1)").val();
+
+				bootbox.dialog({
+						title: "<span style='color: #07689F;'>Full description </span>",
+						  size: "medium",
+						  message: full_description,
+                          buttons: {
+								success:{
+					         		label: "Close",
+					         		className: "btn-danger"
+					         	}
+						}
+					});
+
+   })
+
+ $("#datatable").on('click', '.update-post', function(){
+	var currentRow=$(this).closest('tr');
+	var id=currentRow.find("input:eq(0)").val();
+
+      /*
+       send a get request to get the post instance for the clicked post and populate the fields
+       so user can edit the editable ones
+       */
+
+      $.ajax({
+          type: 'GET',
+          url: "",
+          success: function (response) {
+              if(response.status === "404"){
+                  alert("Error: " + response.message)
+              }else {
+                  $(".title").text("Update Post");
+
+                  $("div#form-fields").html(response);
+                  $("#myModal2").modal('show');
+              }
+          },
+          error: function (response) {
+              //alert(response)
+            }
+      })
+   });
+
+  });
+</script>
+{% endblock %}

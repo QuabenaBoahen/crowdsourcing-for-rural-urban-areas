@@ -1,0 +1,122 @@
+{% extends 'crowdsourceadmin/fragments/base.html' %}
+{% block title %} Admin | User {% endblock %}
+
+{% block content %}
+
+    <div id="wrapper">
+
+        {% include 'crowdsourceadmin/fragments/top-bar.html' %}
+
+        {% include 'crowdsourceadmin/fragments/left-side-bar.html' %}
+
+       <!-- ============================================================== -->
+		<!-- Start right Content here -->
+		<!-- ============================================================== -->
+		<div class="content-page">
+			<!-- Start content -->
+			<div class="content">
+				<div class="container">
+
+					<!-- Page-Title -->
+					<div class="row">
+                      {% include 'crowdsourceadmin/fragments/messages.html' %}
+						<div class="col-sm-12">
+							<ol class="breadcrumb pull-right">
+								<li><a href="#">Crowdsourcing for Rural Urban Areas</a></li>
+                                <li><a href="#">Admin Section</a></li>
+                                <li class="active">Dashboard</li>
+							</ol>
+						</div>
+					</div>
+
+					<div class="panel">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="m-b-30"></div>
+								</div>
+							</div>
+							<div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
+                                  <!-- Start Widget -->
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-lg-4">
+                                <div class="mini-stat clearfix bx-shadow">
+                                    <span class="mini-stat-icon bg-info"><i class="fa fa-medkit"></i></span>
+                                    <div class="mini-stat-info text-right text-muted">
+                                        <span class="">{{ total_deployments }}</span>
+                                        Total
+                                    </div>
+                                    <div class="tiles-progress">
+                                        <div class="m-t-20">
+                                            <h5 class="text-uppercase">All Deployments <span class="pull-right"></span></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-lg-4">
+                                <div class="mini-stat clearfix bx-shadow">
+                                    <span class="mini-stat-icon bg-purple"><i class="fa fa-file-text"></i></span>
+                                    <div class="mini-stat-info text-right text-muted">
+                                        <span class="">{{ total_users }}</span>
+                                        Total
+                                    </div>
+                                    <div class="tiles-progress">
+                                        <div class="m-t-20">
+                                            <h5 class="text-uppercase">Registered Users (Crowdsourcees) <span class="pull-right"></span></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-6 col-lg-4">
+                                <div class="mini-stat clearfix bx-shadow">
+                                    <span class="mini-stat-icon bg-success"><i class="fa fa-th-list"></i></span>
+                                    <div class="mini-stat-info text-right text-muted">
+                                        <span class="">{{ todays_deployments }}</span>
+                                        Total
+                                    </div>
+                                    <div class="tiles-progress">
+                                        <div class="m-t-20">
+                                            <h5 class="text-uppercase">Today's Total Deployments<span class="pull-right"></span></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <canvas id="myChart" width="400" height="150"></canvas>
+                        </div>
+                        <!-- End row-->
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!-- container -->
+
+			</div>
+			<!-- content -->
+        </div>
+
+      </div>
+
+{% include 'crowdsourceadmin/fragments/footer.html' %}
+<script>
+                 var ctx = document.getElementById("myChart").getContext('2d');
+                 var totalDeployments="{{ total_deployments }}";
+                 var totalRegisteredUsers="{{ total_users }}";
+                 var todaysTotalDeployment="{{ total_deployments }}";
+                 var myChart = new Chart(ctx, {
+                	  type: 'pie',
+                	  data: {
+                	    labels: ["Total Deployments", "Total Registered Users", "Today's Total Deployments"],
+                	    datasets: [{
+                	      backgroundColor: [
+                	        "#2ecc71",
+                	        "#3498db",
+                	        "#95a5a6"
+                	      ],
+                	      data: [totalDeployments, totalRegisteredUsers, todaysTotalDeployment]
+                	    }]
+                	  }
+                	});
+                 </script>
+{% endblock %}

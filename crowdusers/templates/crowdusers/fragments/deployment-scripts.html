@@ -1,0 +1,333 @@
+{% load static %}
+{# JQUERY FILE UPLOAD SCRIPTS #}
+  <script src="{% static 'crowdusers/jquery-file-upload/vendor/jquery.ui.widget.js' %}"></script>
+  <script src="{% static 'crowdusers/jquery-file-upload/jquery.iframe-transport.js' %}"></script>
+  <script src="{% static 'crowdusers/jquery-file-upload/jquery.fileupload.js' %}"></script>
+
+  {# PHOTOS PAGE SCRIPTS #}
+  <script src="{% static 'crowdusers/scripts/deployment-images-upload.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+       $(".form-bootstrapWizard > li").click(function(){
+        if($(this).hasClass("disabled"))
+            return false;
+     });
+    })
+</script>
+
+<script>
+	var reportHasResponseBodies=false, fileArr = [], optionOtherSelectedForHowUserLearnedAboutReport=false;
+		$(document)
+				.ready(
+						function() {
+
+							pageSetUp();
+
+							$('#reportdate')
+									.datepicker(
+											{
+												dateFormat : 'dd.mm.yy',
+												prevText : '<i class="fa fa-chevron-left"></i>',
+												nextText : '<i class="fa fa-chevron-right"></i>',
+												onSelect : function(
+														selectedDate) {
+													$('#reportdate').value = selectedDate;
+												}
+											});
+
+
+							//Bootstrap Wizard Validations
+
+							var $validator = $("#wizard-1")
+									.validate(
+											{
+
+												rules : {
+													nameofreport : {
+														required : true
+													},
+													natureofreport : {
+														required : true
+													},
+													reportdescription : {
+														required : true
+													},
+													reporter : {
+														required : true
+													},
+													latitude : {
+														required : true
+													},
+													longitude : {
+														required : true
+													},
+													reportdate : {
+														required : true
+													},
+													reporttime : {
+														required : true
+													},
+													tframeofreport : {
+														required : true
+													}
+												},
+
+												messages : {
+													nameofreport   : "Please provide a very brief and simple description of report",
+													natureofreport : "You need to tick the option(s) that apply to your report",
+													reportdescription : "Please provide a vivid and clear description of your report as much as you can",
+													reporter : "You need to tick the option that apply to your report",
+													latitude : "Please specify the latitude of your report location",
+													longitude : "Please specify the longitude of your report location",
+													reportdate : "Please specify the date for this report",
+													reporttime : "Please specify the time for this report",
+													tframeofreport : "Please specify the time frame for this report"
+												},
+
+												highlight : function(element) {
+													$(element)
+															.closest(
+																	'.form-group')
+															.removeClass(
+																	'has-success')
+															.addClass(
+																	'has-error');
+												},
+												unhighlight : function(element) {
+													$(element)
+															.closest(
+																	'.form-group')
+															.removeClass(
+																	'has-error')
+															.addClass(
+																	'has-success');
+												},
+												errorElement : 'span',
+												errorClass : 'help-block',
+												errorPlacement : function(
+														error, element) {
+													if (element
+															.parent('.input-group').length) {
+														error
+																.insertAfter(element
+																		.parent());
+													} else {
+														error
+																.insertAfter(element);
+													}
+												}
+											});
+
+							$('#bootstrap-wizard-1')
+									.bootstrapWizard(
+											{
+												'tabClass' : 'form-wizard',
+												'onNext' : function(tab,
+														navigation, index) {
+													var $valid = $("#wizard-1")
+															.valid();
+													if (!$valid) {
+														$validator
+																.focusInvalid();
+														return false;
+													} else {
+														$('#bootstrap-wizard-1')
+																.find(
+																		'.form-wizard')
+																.children('li')
+																.eq(index - 1)
+																.addClass(
+																		'complete');
+														$('#bootstrap-wizard-1')
+																.find(
+																		'.form-wizard')
+																.children('li')
+																.eq(index - 1)
+																.find('.step')
+																.html(
+																		'<i class="fa fa-check"></i>');
+													}
+												}
+											});
+
+							$('#bootstrap-wizard-1 .finish').click(function(e) {
+								e.preventDefault();
+								createDeployment();
+								});
+
+							/*
+							Create deployment validations
+							*/
+
+							//hide other source of report & response bodies on first load and page refresh
+							$("#otherreporter").hide();
+							$("#responsefrombodies").hide();
+							$('input:radio[name="reporter"]').change(function() {
+						        if ($(this).val() === 'Other') {
+						            optionOtherSelectedForHowUserLearnedAboutReport = true;
+						           $("#otherreporter").show();
+						         } else {
+						            optionOtherSelectedForHowUserLearnedAboutReport = false;
+						        	$("#otherreporter").hide();
+						       }
+						    });
+
+							$('input:checkbox[name="responsefrombodiesval"]').change(function() {
+								 if($(this).prop("checked") === true){
+									 reportHasResponseBodies=true;
+									 $("#responsefrombodies").show();
+								    }else{
+								    	$("#responsefrombodies").hide();
+								    }
+						        });
+
+							  function createDeployment(){
+							    /*
+							    * do extra validations before submitting post - [if user selects option "other" in 'how did you get
+							    * to know of this report' user must enter a value in the 'specify how you learned about this report'
+							    * textbox]
+							     */
+							    if(optionOtherSelectedForHowUserLearnedAboutReport===true){
+							        //alert("works")
+                                }
+				                var natureofreport, reporter, responsebodies;
+				                natureofreport = $("input.natureofreport:checkbox:checked").map(function () {
+				                      return this.value;
+				                   }).get().join(",");
+
+				                	reporter = $("input:radio[name=reporter]:checked").val()==="Other" ? $("#bopc-report").val():
+				                		$("input:radio[name=reporter]:checked").val();
+
+				                	responsebodies=reportHasResponseBodies===true?$("#responsebodies").val():"";
+
+							    var form = $('#wizard-1')[0];
+								var data = new FormData();
+								data.append("report_brief_description", $("#nameofreport").val());
+								data.append("report_nature", natureofreport);
+								data.append("report_full_description", $("#reportdescription").val());
+								data.append("reporter_background",  reporter);
+								data.append("latitude", $("#latitude").val());
+								data.append("longitude", $("#longitude").val());
+								data.append("report_date", $("#reportdate").val());
+								data.append("report_time", $("#reporttime").val());
+								data.append("report_time_frame", $("#tframeofreport").val());
+								data.append("report_response_bodies", responsebodies);
+								data.append("report_video_link", $("#videolink").val());
+
+                                 var token = '{{ csrf_token }}';
+				                    //send data via ajax
+									$.ajax({
+                                    headers: {"X-CSRFToken": token},
+									type        : 'POST',
+									enctype :'multipart/form-data',
+									url         : '{% url 'crowdusers:persist_deployment' %}',
+									data        : data,
+								    processData: false,
+								    contentType: false,
+								    cache: false
+								     }).done(function(data) {
+								     	//console.log(data);
+								     if(data.error==true){
+							          //get the error response and display appropriate msg to user
+							     	   }else{
+							     		$('#wizard-1')[0].reset();
+							     		//window.location.href="{% url 'crowdusers:deployment' %}"
+							     		alert("Deployment created successfully");
+							     	  }
+									}).fail(function(xhr, status, error){
+										console.log("error occured " + status + " error msg " + error);
+									});
+								}
+
+						})
+	</script>
+
+	<script>
+		var map, infoWindow, marker;
+		function initMap(latitude, longitude) {
+
+			infoWindow = new google.maps.InfoWindow;
+
+			// Try HTML5 geolocation.
+			if (navigator.geolocation) {
+				navigator.geolocation
+						.getCurrentPosition(
+								function(position) {
+									var pos = {
+										lat : position.coords.latitude,
+										lng : position.coords.longitude
+									};
+
+									map = new google.maps.Map(document
+											.getElementById('map'), {
+										zoom : 6,
+										center : pos
+									});
+
+									//zoom into user's current location
+									map.setZoom(15);
+
+									marker = new google.maps.Marker({
+										position : pos,
+										map : map
+									});
+
+									document.getElementById("latitude").value = position.coords.latitude;
+									document.getElementById("longitude").value = position.coords.longitude;
+
+									marker
+											.addListener(
+													'click',
+													function() {
+														document
+																.getElementById("latitude").value = "";
+														document
+																.getElementById("longitude").value = "";
+														document
+																.getElementById("latitude").value = position.coords.latitude;
+														document
+																.getElementById("longitude").value = position.coords.longitude;
+													});
+
+									google.maps.event
+											.addListener(
+													map,
+													'click',
+													function(e) {
+														document
+																.getElementById("lat").value = "";
+														document
+																.getElementById("long").value = "";
+														document
+																.getElementById("lat").value = e.latLng
+																.lat();
+														document
+																.getElementById("long").value = e.latLng
+																.lng();
+													});
+
+									infoWindow.setPosition(pos);
+									infoWindow
+											.setContent('Your approximate current location');
+									infoWindow.open(map, marker);
+									map.setCenter(pos);
+								}, function() {
+									handleLocationError(true, infoWindow, map
+											.getCenter());
+								});
+			} else {
+				// Browser doesn't support Geolocation
+				handleLocationError(false, infoWindow, map.getCenter());
+			}
+		}
+
+		function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+			infoWindow.setPosition(pos);
+			infoWindow.setContent(browserHasGeolocation ? 'Error: The Geolocation service failed.'
+							: 'Error: Your browser doesn\'t support geolocation.');
+			infoWindow.open(map);
+		}
+	</script>
+	<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtZeGCdqb5KqAG5ROpf1d6oUdAVwzTpyc&callback=initMap"></script>

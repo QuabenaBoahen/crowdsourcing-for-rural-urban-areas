@@ -1,0 +1,113 @@
+{% extends 'crowdsourceadmin/fragments/base.html' %}
+{% block title %} Admin | Cron Jobs {% endblock %}
+
+{% block content %}
+
+    <div id="wrapper">
+
+        {% include 'crowdsourceadmin/fragments/top-bar.html' %}
+
+        {% include 'crowdsourceadmin/fragments/left-side-bar.html' %}
+
+       <!-- ============================================================== -->
+		<!-- Start right Content here -->
+		<!-- ============================================================== -->
+		<div class="content-page">
+			<!-- Start content -->
+			<div class="content">
+				<div class="container">
+
+					<!-- Page-Title -->
+					<div class="row">
+                        {% include 'crowdsourceadmin/fragments/messages.html' %}
+						<div class="col-sm-12">
+                            <form action="{% url 'crowdsourceadmin:get_news_updates_cron' %}" method="get" id="fetch-news-form"></form>
+                            <button type="button" class="btn btn-warning" id="run-cron-manually">Manually Fetch News Updates</button>
+							<ol class="breadcrumb pull-right">
+								<li><a href="#">GhNewsHub</a></li>
+                                <li><a href="#">Admin Section</a></li>
+                                <li class="active">Cron Jobs</li>
+							</ol>
+						</div>
+					</div>
+
+					<div class="panel">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="m-b-30"></div>
+								</div>
+							</div>
+							<div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
+							<form id="frmDisableAccount">
+								<table class="table table-bordered table-striped" id="datatable">
+									<thead>
+										<tr>
+											<th>Code</th>
+											<th>Start Time</th>
+											<th>End Time</th>
+											<th>Duration</th>
+                                            <th>Success</th>
+										</tr>
+									</thead>
+									<tbody>
+                                    {% for cron in cron_jobs %}
+										<tr>
+                                          <td>{{ cron.code }}</td>
+                                          <td>{{ cron.start_time }}</td>
+                                          <td>{{ cron.end_time }}</td>
+                                          <td>{{ cron.end_time|timesince:cron.start_time}}</td>
+                                          <td>{{ cron.is_success }}</td>
+                                        </tr>
+                                    {% endfor %}
+									</tbody>
+								</table>
+								</form>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!-- container -->
+
+			</div>
+			<!-- content -->
+        </div>
+
+      </div>
+
+{% include 'crowdsourceadmin/fragments/footer.html' %}
+{% include 'crowdsourceadmin/fragments/bootbox-messages.html' %}
+
+<script>
+  $(document).ready(function(){
+     $('#datatable').dataTable();
+
+$("#run-cron-manually").on('click', function (e) {
+    e.preventDefault();
+
+    bootbox.dialog({
+						title: "<span style='color: #07689F;'>News Updates Cron Job</span>",
+						  size: "medium",
+						  message: "Do you really want to manually fetch news update from the webhose.io API?",
+                           buttons: {
+                            danger:{
+                                label: "No",
+                                className: "btn-danger"
+                            },
+                            success:{
+                                label: "Yes",
+                                className: "btn-primary",
+                                    callback: function(e){
+                                          e.preventDefault();
+                                            $("#fetch-news-form").submit();
+                               }
+                         }
+	                }
+             });
+
+     })
+  });
+</script>
+
+{% endblock %}

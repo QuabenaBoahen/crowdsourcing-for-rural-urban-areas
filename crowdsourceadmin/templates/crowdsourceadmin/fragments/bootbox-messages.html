@@ -1,0 +1,21 @@
+<script>
+
+    function bootBoxMessages(title, message, redirect_url){
+        bootbox.dialog({
+						title: "<span style='color: #07689F;'>" + title + "</span>",
+						  size: "medium",
+						  message: message,
+                          buttons: {
+								success:{
+					         		label: "Close",
+					         		className: "btn-info",
+                                    callback: function(e){
+					         		    e.preventDefault();
+					         		    window.location.href=redirect_url;
+                                    }
+					         	}
+						}
+             });
+    }
+
+</script>

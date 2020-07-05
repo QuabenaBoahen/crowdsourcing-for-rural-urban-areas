@@ -1,0 +1,11 @@
+    <div class="row" id="form-fields">
+             {% csrf_token %}
+    <input type="hidden" value="{{ form.instance.id }}" name="id"/>
+            {% for field in form %}
+           <div class="form-group col-4">
+                <label class="col-8">{{field.label}}</label>
+                {{ field }}
+            </div>
+             {% endfor %}
+    </div>
+
