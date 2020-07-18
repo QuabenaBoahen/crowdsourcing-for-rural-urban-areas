@@ -1,6 +1,8 @@
+import json
+
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-
+from django.contrib.auth.decorators import login_required
 from crowdsourcing.serializers import DeploymentSerializer, ImageSerializer
 from .forms import *
 from django.contrib import messages
@@ -8,9 +10,16 @@ from .utils import CrowdSourcingUtils
 
 
 def index(request):
+    deployment_location_details = []
+    deployment_details = {}
+    for dep in Deployment.objects.all():
+        deployment_details = {'location': dep.deployment_location, 'lat': dep.latitude,
+                                       'lng': dep.longitude}
+        deployment_location_details.append(deployment_details)
     context = {
         'index': 'true',
-        'deployments': CrowdSourcingUtils.paginate_deployments(request, Deployment.objects.all())
+        'deployments': CrowdSourcingUtils.paginate_deployments(request, Deployment.objects.all()),
+        'deployment_location_details': json.dumps(deployment_location_details)
     }
     return render(request, 'crowdusers/index.html', context)
 
@@ -22,6 +31,7 @@ def get_single_deployment_details(request, **kwargs):
             try:
                 single_deployment = Deployment.objects.get(pk=dep_pk)
                 single_deployment_images = DeploymentImages.objects.filter(deployment_number=single_deployment.deployment_number).first()
+                days_since_deployment = CrowdSourcingUtils.days_since_deployment(single_deployment.report_date)
                 serializer = DeploymentSerializer(instance=single_deployment)
                 image_serializer = ImageSerializer(instance=single_deployment_images)
 
@@ -30,7 +40,7 @@ def get_single_deployment_details(request, **kwargs):
                     request.session['viewed_deployment_%s' % dep_pk] = True
                     single_deployment.report_views += 1
                     single_deployment.save()
-                return JsonResponse({"data": serializer.data, "images": image_serializer.data}, status=200)
+                return JsonResponse({"data": serializer.data, "images": image_serializer.data, 'days_since_deployment': days_since_deployment}, status=200)
             except Deployment.DoesNotExist:
                 return JsonResponse({"status": '404', 'error': 'No deployment found with the id %s ' % dep_pk},
                                     status=400)
@@ -46,6 +56,7 @@ def contact(request):
     return render(request, 'crowdusers/contact-us.html', {'contact': 'true'})
 
 
+@login_required
 def deployment(request):
     report_nature = ReportNature.objects.all()
     context = {

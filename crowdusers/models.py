@@ -14,6 +14,7 @@ class Deployment(models.Model):
     report_nature = models.CharField(max_length=15, blank=False)
     report_full_description = models.TextField(blank=False)
     reporter_background = models.CharField(max_length=25, blank=False)
+    deployment_location = models.CharField(max_length=25, blank=True)
     latitude = models.CharField(max_length=15, blank=False)
     longitude = models.CharField(max_length=15, blank=False)
     report_date = models.CharField(max_length=12, blank=False)
@@ -38,5 +39,6 @@ class DeploymentImages(models.Model):
 
 
 class CustomUser(User):
-    pass
+    display_name = models.CharField(max_length=55, blank=True)
+
 

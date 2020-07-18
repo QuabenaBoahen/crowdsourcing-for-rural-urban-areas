@@ -15,3 +15,8 @@ class DeploymentAdmin(admin.ModelAdmin):
 @admin.register(DeploymentImages)
 class DeploymentImagesAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(CustomUser)
+class CustomUserAdmin(admin.ModelAdmin):
+    pass

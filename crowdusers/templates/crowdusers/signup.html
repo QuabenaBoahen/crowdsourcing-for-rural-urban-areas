@@ -13,15 +13,16 @@
 		<!-- ################################################################################################ -->
 		<!-- ################################################################################################ -->
 		<!-- ################################################################################################ -->
-	<section>
+	<section><br/><br/>
       <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="col-lg-12 col-md-12 col-sm-12 contact_area">
             <div class="col-sm-12">
            <div class="limiter">
 		<div class="container-login100">
-			<div class="wrap-login100" style="background-color: #7C898B !important;">
+			<div class="wrap-login100" style="background-color: #7C898B !important;"><br/>
 				<form class="login100-form validate-form" action="{% url 'signup' %}" method="post">
                     {% csrf_token %}
+                    {% include 'crowdusers/fragments/messages.html' %}
                     <div><p><span class="login100-form-title p-b-43">
 						Fill in details to sign up
 					</span>

@@ -42,7 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crowdusers',
     'crowdsourceadmin',
+    'mobile_api',
     'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +74,16 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',)
+}
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+    "http://b7f05cc489d2.ngrok.io",
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -137,6 +150,18 @@ LOGIN_REDIRECT_URL = reverse_lazy('crowdsourceadmin:index')
 SUPERUSER_LOGIN_REDIRECT_URL = reverse_lazy('crowdsourceadmin:index')
 
 LOGIN_URL = '/accounts/login/'
+
+if DEBUG is True:
+    APP_BASE_URI = 'http://localhost:8000'
+
+if DEBUG is False:
+    APP_BASE_URI = 'http://198.22.168.119:8081'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'customarylands.gh@gmail.com'
+EMAIL_HOST_PASSWORD = 'Jet!123321'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'

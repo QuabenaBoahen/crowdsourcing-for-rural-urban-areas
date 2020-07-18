@@ -31,5 +31,5 @@ class CustomUserForm(ModelForm):
 
     class Meta:
         model = CustomUser
-        fields = ['email', 'username', 'first_name', 'last_name', 'password']
-        labels = {'first_name': 'First Name', 'last_name': 'Last Name'}
+        fields = ['email', 'display_name', 'password']
+        labels = {'display_name': 'Display Name'}

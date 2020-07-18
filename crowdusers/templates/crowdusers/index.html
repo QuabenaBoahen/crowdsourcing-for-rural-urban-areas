@@ -27,20 +27,14 @@
         <div class="col-md-3">
           <ul class="nav nav-tabs left-tabs">
             <li class="nav-item">
-              <a class="nav-link active" href="#lorem-left" data-toggle="tab">Map</a>
+              <a class="nav-link active" href="#lorem-left" data-toggle="tab" style="color: grey !important;">Map</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#ipsum-left" data-toggle="tab">Deployments</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link"
-                href="#llanfairpwllgwyngyll-left"
-                title="Llanfair­pwllgwyngyll­gogery­chwyrn­drobwll­llan­tysilio­gogo­goch"
-                data-toggle="tab">Activity</a>
+              <a class="nav-link" href="#ipsum-left" data-toggle="tab" style="color: grey !important;">Deployments</a>
             </li>
             <br/><br/>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+              <a class="nav-link" href="{% url 'signup' %}" style="color: grey !important;">Sign Up</a>
             </li>
           </ul>
         </div>
@@ -65,7 +59,9 @@
                   <div class="card-body">
                       <p><span>published </span> <span>by {{ deployment.user.username }}</span></p>
                       <p>
-                    <h6 class="card-subtitle mb-2 text-muted">via web</h6> <h6 class="card-subtitle mb-2 text-muted">6 days ago</h6>
+                    <span class="card-subtitle mb-2 text-muted">via {{ deployment.report_platform }}, </span>
+                      {% load crowdusers_extras %}
+                      <span class="card-subtitle mb-2 text-muted">{{ deployment.report_date|days_since_deployment }} days ago </span>
                       </p>
                       <h3 class="card-title">{{ deployment.report_brief_description }}</h3>
                        {% load admin_extras %}
@@ -105,7 +101,8 @@
                   <div class="card-body">
                       <p><span>published </span> <span>by <i><span class="dep-user"></span></i></span></p>
                       <p>
-                    <h6 class="card-subtitle mb-2 text-muted">via web</h6><h6 class="card-subtitle mb-2 text-muted">6 days ago</h6>
+                    <span class="card-subtitle mb-2 text-muted">via <i><span class="dep-platform"></span></i></span>,
+                      <span class="card-subtitle mb-2 text-muted"><span class="days-since-deployment"></span> days ago</span>
                       </p>
                       <h6>Title</h6>
                       <h3 class="card-title dep-short-desc"></h3>
@@ -141,31 +138,6 @@
                 </div>
                   </div>
                    </div>
-                </section>
-              </article>
-              <article class="tab-pane container" id="llanfairpwllgwyngyll-left">
-                <h1>Activity</h1>
-                <section>
-                  <p><small>From Wikipedia, the free encyclopedia</small></p>
-                </section>
-                <section>
-                  <p>
-                    Llanfair­pwllgwyngyll­gogery­chwyrn­drobwll­llan­tysilio­gogo­goch (pronounced
-                    [ˌɬanvair­pʊɬˌɡwɨ̞ŋɡɨ̞ɬ­ɡɔˌɡɛrə­ˌχwərn­ˌdrɔbʊɬ­ˌɬan­təˌsɪljɔ­ˌɡɔɡɔ­ˈɡoːχ] in Welsh), official short
-                    form name Llanfairpwllgwyngyll (pronounced [ɬanˌvair puɬˈɡwɨ̞nɡɨ̞ɬ]), also spelled Llanfair
-                    Pwllgwyngyll, is a large village and local government community on the island of Anglesey in Wales.
-                    It is situated on the Menai Strait next to the Britannia Bridge and across the strait from Bangor.
-                    While the official short form name is used in official contexts, both the full name and shortened
-                    (Llanfairpwll or Llanfair PG) forms of the place name are used in various contexts.
-                  </p>
-                  <p>
-                    <a
-                      href="https://en.wikipedia.org/wiki/Llanfairpwllgwyngyll"
-                      target="_blank"
-                      title="Open Wikipedia article in a new tab."
-                      >Full article &gt;</a
-                    >
-                  </p>
                 </section>
               </article>
             </div>
@@ -220,6 +192,8 @@ $("#short-dep-description a").click( function(){
           $(".dep-short-desc").text(response.data.report_brief_description);
           $(".dep-full-desc").text(response.data.report_full_description);
           $(".dep-nature").text(dep_nature);
+          $(".dep-platform").text(response.data.report_platform);
+          $(".days-since-deployment").text(response.days_since_deployment);
           $(".dep-source").text(response.data.reporter_background);
           $(".dep-time-frame").text(response.data.report_time_frame);
           $(".dep-date-and-time").text(response.data.report_date + ", " + response.data.report_time);
@@ -240,7 +214,7 @@ $("#short-dep-description a").click( function(){
     function _initMap(latitude, longitude) {
         var currentLocation = {lat: Number(latitude), lng: Number(longitude)};
         var map = new google.maps.Map(document.getElementById('dep-location'), {
-            zoom: 13,
+            zoom: 8,
             center: currentLocation,
             mapTypeId: 'roadmap'
         });
@@ -254,18 +228,46 @@ $("#short-dep-description a").click( function(){
  </script>
  <script type="text/javascript">
     function initMap() {
-        var _currentLocation = {lat: Number(53.0919), lng: Number(-2.3848)};
-        var _map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 13,
+
+     var deployment_locations = [], deployment_locations_arr = [];
+
+     {{deployment_location_details|safe}}.forEach(populateLocationDetails);
+            function populateLocationDetails(item, i, array) {
+                deployment_locations.push(item);
+       }
+
+
+       for(var i=0;i<deployment_locations.length;i++) {
+             deployment_locations_arr.push([{'location': deployment_locations[i].location, 'lat': parseFloat(deployment_locations[i].lat),
+                  'lng':parseFloat(deployment_locations[i].lng)}]);
+       }
+
+
+        var _currentLocation = {lat: Number(6.688390), lng: Number(-1.595310)};
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 6,
             center: _currentLocation,
             mapTypeId: 'roadmap'
         });
 
-        var _marker = new google.maps.Marker({
-        position: _currentLocation
-     });
+        var infowindow = new google.maps.InfoWindow();
 
-        _marker.setMap(_map);
+        var marker, i;
+
+     for (i = 0; i < deployment_locations_arr.length; i++){
+       //console.log("fred ", deployment_locations_arr[i][0]);
+       marker = new google.maps.Marker({
+        position: new google.maps.LatLng(deployment_locations_arr[i][0].lat, deployment_locations_arr[i][0].lng),
+        map: map
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(deployment_locations_arr[i][0].location);
+          infowindow.open(map, marker);
+        }
+        })(marker, i));
+      }
 
     }
  </script>

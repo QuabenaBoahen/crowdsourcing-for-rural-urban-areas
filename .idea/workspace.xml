@@ -1,7 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="53d30f56-6ebc-4631-9258-57977eddd4a7" name="Default Changelist" comment="" />
+    <list default="true" id="53d30f56-6ebc-4631-9258-57977eddd4a7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/crowdusers/static/crowdusers/styles/fontawesome-all.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/crowdusers/static/crowdusers/styles/fontawesome-all.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/crowdusers/static/crowdusers/styles/fontawesome.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/crowdusers/static/crowdusers/styles/fontawesome.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdsourcing/backends.py" beforeDir="false" afterPath="$PROJECT_DIR$/crowdsourcing/backends.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdsourcing/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/crowdsourcing/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdsourcing/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/crowdsourcing/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdsourcing/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/crowdsourcing/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdsourcing/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/crowdsourcing/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdusers/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/crowdusers/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdusers/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/crowdusers/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdusers/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/crowdusers/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdusers/templates/crowdusers/activate-account-mail-template.html" beforeDir="false" afterPath="$PROJECT_DIR$/crowdusers/templates/crowdusers/activate-account-mail-template.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdusers/templates/crowdusers/fragments/base-index.html" beforeDir="false" afterPath="$PROJECT_DIR$/crowdusers/templates/crowdusers/fragments/base-index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdusers/templates/crowdusers/fragments/nav-index.html" beforeDir="false" afterPath="$PROJECT_DIR$/crowdusers/templates/crowdusers/fragments/nav-index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdusers/templates/crowdusers/fragments/nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/crowdusers/templates/crowdusers/fragments/nav.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdusers/templates/crowdusers/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/crowdusers/templates/crowdusers/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdusers/templates/crowdusers/password-reset-email.html" beforeDir="false" afterPath="$PROJECT_DIR$/crowdusers/templates/crowdusers/password-reset-email.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdusers/templates/crowdusers/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/crowdusers/templates/crowdusers/signup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdusers/templatetags/crowdusers_extras.py" beforeDir="false" afterPath="$PROJECT_DIR$/crowdusers/templatetags/crowdusers_extras.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdusers/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/crowdusers/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdusers/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/crowdusers/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/images/bg-01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration/password_reset_complete.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/password_reset_complete.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration/password_reset_confirm.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/password_reset_confirm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration/password_reset_done.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/password_reset_done.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration/password_reset_email.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/password_reset_email.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration/password_reset_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/password_reset_form.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,7 +43,11 @@
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1dbhE2ny63LNCVnId3rVQHwyUsB" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -18,8 +55,9 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/crowdusers/templates/crowdusers" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/crowdusers/static/crowdusers/styles" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -27,11 +65,11 @@
       <recent name="$PROJECT_DIR$/media" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/crowdusers/static/crowdusers/styles" />
+      <recent name="$PROJECT_DIR$/media/images" />
       <recent name="$PROJECT_DIR$/crowdusers/templates/crowdusers" />
       <recent name="$PROJECT_DIR$/crowdusers/static/crowdusers/styles/bootstrap-tabs" />
-      <recent name="$PROJECT_DIR$/media/images" />
       <recent name="$PROJECT_DIR$/crowdusers/static/crowdusers/scripts" />
-      <recent name="$PROJECT_DIR$/crowdusers/static/crowdusers/styles" />
     </key>
   </component>
   <component name="RunManager">
@@ -71,7 +109,9 @@
       <updated>1592699584069</updated>
       <workItem from="1592699585562" duration="51202000" />
       <workItem from="1593374825973" duration="12365000" />
-      <workItem from="1593902977138" duration="27842000" />
+      <workItem from="1593902977138" duration="57315000" />
+      <workItem from="1595020716098" duration="75000" />
+      <workItem from="1595020814639" duration="10649000" />
     </task>
     <servers />
   </component>
@@ -79,13 +119,17 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="436" y="143" width="524" height="505" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1594550750986">
+      <screen x="50" y="27" width="1316" height="741" />
+    </state>
+    <state x="436" y="143" width="524" height="505" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/50.27.1316.741@50.27.1316.741" timestamp="1594550750986" />
     <state x="486" y="152" width="424" height="486" key="FileChooserDialogImpl" timestamp="1593910969105">
       <screen x="50" y="27" width="1316" height="741" />
     </state>
     <state x="486" y="152" width="424" height="486" key="FileChooserDialogImpl/50.27.1316.741@50.27.1316.741" timestamp="1593910969105" />
-    <state x="363" y="222" key="com.intellij.ide.util.TipDialog" timestamp="1593374867089">
+    <state x="363" y="222" key="com.intellij.ide.util.TipDialog" timestamp="1595020835399">
       <screen x="50" y="27" width="1316" height="741" />
     </state>
-    <state x="363" y="222" key="com.intellij.ide.util.TipDialog/50.27.1316.741@50.27.1316.741" timestamp="1593374867089" />
+    <state x="363" y="222" key="com.intellij.ide.util.TipDialog/50.27.1316.741@50.27.1316.741" timestamp="1595020835399" />
   </component>
 </project>

@@ -2,6 +2,8 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core import mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+import datetime as dt
+from datetime import datetime
 
 
 class CrowdSourcingUtils:
@@ -41,3 +43,11 @@ class CrowdSourcingUtils:
         from_email = 'Crowdsourcing for Rural and Urban Areas <' + from_email + '>'
         to = to
         mail.send_mail(subject, plain_message, from_email, [to], html_message=html_message)
+
+    def days_since_deployment(deployment_date):
+        date_format = '%Y-%m-%d'
+        current_date = datetime.strptime(datetime.today().strftime('%Y-%m-%d'), date_format)
+        formatted_deployment_date = datetime.strptime(
+            dt.datetime.strptime(deployment_date, '%d.%m.%Y').strftime('%Y-%m-%d'), date_format)
+        date_diff = current_date - formatted_deployment_date
+        return date_diff.days

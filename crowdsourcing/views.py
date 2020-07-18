@@ -45,11 +45,13 @@ class Account(View):
                 messages.add_message(request, messages.ERROR,
                                      'An account with email %s ' % form.cleaned_data['email'] +
                                      ' already exist. If this is your email please login or reset your password')
+            elif User.objects.filter(username=form.cleaned_data['display_name']).exists():
+                messages.add_message(request, messages.ERROR,
+                                     'An account with username %s ' % form.cleaned_data['display_name'] +
+                                     ' already exist. Please choose a different username')
             else:
                 user = User.objects.create_user(email=form.cleaned_data['email'],
-                                                username=form.cleaned_data['username'],
-                                                first_name=form.cleaned_data['first_name'],
-                                                last_name=form.cleaned_data['last_name'],
+                                                username=form.cleaned_data['display_name'],
                                                 password=form.cleaned_data['password'], is_active=False)
                 CrowdSourcingUtils.send_account_activation_email(self, settings.EMAIL_HOST_USER, user.email, user,
                                                         settings.APP_BASE_URI)
@@ -80,7 +82,7 @@ class Account(View):
         return render(request, 'registration/password_reset_form.html')
 
     def send_password_reset_email(request):
-        email = request.POST.get('email', False)
+        email = request.POST.get('email', '')
         user = User.objects.filter(email=email)
         if user.count() > 0:
             user = user.first()
