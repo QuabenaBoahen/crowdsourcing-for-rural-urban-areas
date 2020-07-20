@@ -5,6 +5,7 @@ from rest_framework.decorators import action
 from django.http import JsonResponse
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from crowdusers.utils import CrowdSourcingUtils
+from rest_framework.response import Response
 
 
 class UsersViewSet(viewsets.ModelViewSet):
@@ -14,21 +15,21 @@ class UsersViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['POST'], url_path='signup')
     def signup(self, request):
-        email = request.query_params.get('email', None)
-        username = request.query_params.get('username', None)
-        password = request.query_params.get('password', None)
+        email = request.data.get('email', None)
+        username = request.data.get('username', None)
+        password = request.data.get('password', None)
         if User.objects.filter(email=email).exists():
-            return JsonResponse({"message": 'An account with email %s ' % email +
-                                 ' already exist. If this is your email please login or reset your password on the web app', "status": 200}, status=200)
+            return Response({"message": 'An account with email %s ' % email +
+                                 ' already exist. If this is your email please login or reset your password on the web app', "status": "401", "error": "true"}, status=200)
         elif User.objects.filter(username=username).exists():
-            return JsonResponse({"message": 'An account with username %s ' % username +
-                                 ' already exist. Please choose a different username', "status": 200},
+            return Response({"message": 'An account with username %s ' % username +
+                                 ' already exist. Please choose a different username', "status": "402", "error": "true"},
                                 status=200)
         else:
             user = User.objects.create_user(email=email,
                                             username=username,
                                             password=password, is_active=True)
-            return JsonResponse({"message": 'Account created successfully', "status": 200},
+            return Response({"message": 'Account created successfully', "status": "200", "error": "false"},
                                 status=200)
 
 

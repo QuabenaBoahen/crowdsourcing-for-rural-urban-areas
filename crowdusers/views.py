@@ -1,5 +1,4 @@
 import json
-
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -75,6 +74,7 @@ def persist_deployment(request):
         user_deployment.deployment_number = random_deployment_number
         user_deployment.user = request.user
         user_deployment.report_platform = 'Web'
+        user_deployment.deployment_location = CrowdSourcingUtils.get_location_from_latlng(form.cleaned_data['latitude'], form.cleaned_data['longitude'])
         user_deployment.save()
         messages.add_message(request, messages.SUCCESS, 'Your deployment has been created successfully')
     else:
@@ -96,3 +96,4 @@ def persist_deployment_images(request, **kwargs):
     else:
         data = {'is_valid': False}
     return JsonResponse(data)
+

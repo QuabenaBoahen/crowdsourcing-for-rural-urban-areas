@@ -31,6 +31,9 @@ class Deployment(models.Model):
     def __str__(self):
         return self.report_brief_description
 
+    class Meta:
+        ordering = ['-created_date']
+
 
 class DeploymentImages(models.Model):
     deployment_number = models.CharField(max_length=10, blank=False)

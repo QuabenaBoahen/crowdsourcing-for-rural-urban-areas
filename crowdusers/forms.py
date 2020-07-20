@@ -6,7 +6,7 @@ from django import forms
 class DeploymentForm(ModelForm):
     class Meta:
         model = Deployment
-        exclude = ['created_date']
+        exclude = ['created_date', 'user']
 
 
 class DeploymentImagesForm(ModelForm):

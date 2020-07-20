@@ -4,6 +4,11 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 import datetime as dt
 from datetime import datetime
+import requests
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
+from rest_framework.decorators import api_view, renderer_classes
 
 
 class CrowdSourcingUtils:
@@ -51,3 +56,14 @@ class CrowdSourcingUtils:
             dt.datetime.strptime(deployment_date, '%d.%m.%Y').strftime('%Y-%m-%d'), date_format)
         date_diff = current_date - formatted_deployment_date
         return date_diff.days
+
+    #@api_view(('GET',))
+    # @renderer_classes((TemplateHTMLRenderer, JSONRenderer))
+    def get_location_from_latlng(lat, lng):
+        r = requests.get(
+            'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng + '&key=AIzaSyDtZeGCdqb5KqAG5ROpf1d6oUdAVwzTpyc',
+            timeout=10)
+        if r.status_code == 200:
+            #return Response(r.json()['results'][0]['formatted_address'], status=status.HTTP_200_OK)
+            return r.json()['results'][0]['formatted_address']
+

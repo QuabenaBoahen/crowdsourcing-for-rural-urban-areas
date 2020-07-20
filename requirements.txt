@@ -1,0 +1,7 @@
+Pillow
+djangorestframework
+requests
+django_cron
+django-cors-headers
+
+
