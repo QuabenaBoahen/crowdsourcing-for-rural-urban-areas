@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="53d30f56-6ebc-4631-9258-57977eddd4a7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/media/images/crowdsourcing-img.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python3.8/site-packages/django/http/request.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python3.8/site-packages/django/http/request.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +27,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/crowdusers/static/crowdusers/styles" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/media/images" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -81,7 +81,7 @@
       <workItem from="1593374825973" duration="12365000" />
       <workItem from="1593902977138" duration="57315000" />
       <workItem from="1595020716098" duration="75000" />
-      <workItem from="1595020814639" duration="40468000" />
+      <workItem from="1595020814639" duration="42078000" />
     </task>
     <servers />
   </component>
