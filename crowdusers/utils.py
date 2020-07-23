@@ -14,7 +14,7 @@ from rest_framework.decorators import api_view, renderer_classes
 class CrowdSourcingUtils:
     def paginate_deployments(request, object_list):
         page = request.GET.get('page', 1)
-        paginator = Paginator(object_list, 4)
+        paginator = Paginator(object_list, 3)
         try:
             deployments = paginator.page(page)
         except PageNotAnInteger:
@@ -50,12 +50,19 @@ class CrowdSourcingUtils:
         mail.send_mail(subject, plain_message, from_email, [to], html_message=html_message)
 
     def days_since_deployment(deployment_date):
+        total_days_since_deployment = ''
         date_format = '%Y-%m-%d'
         current_date = datetime.strptime(datetime.today().strftime('%Y-%m-%d'), date_format)
         formatted_deployment_date = datetime.strptime(
             dt.datetime.strptime(deployment_date, '%d.%m.%Y').strftime('%Y-%m-%d'), date_format)
         date_diff = current_date - formatted_deployment_date
-        return date_diff.days
+        if date_diff.days < 1:
+            total_days_since_deployment = 'today'
+        if date_diff.days == 1:
+            total_days_since_deployment = str(date_diff.days) + " day ago"
+        if date_diff.days > 1:
+            total_days_since_deployment = str(date_diff.days) + " days ago"
+        return total_days_since_deployment
 
     #@api_view(('GET',))
     # @renderer_classes((TemplateHTMLRenderer, JSONRenderer))

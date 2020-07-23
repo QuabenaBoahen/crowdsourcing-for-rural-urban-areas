@@ -231,9 +231,9 @@
 								     if(data.error==true){
 							          //get the error response and display appropriate msg to user
 							     	   }else{
-							     		$('#wizard-1')[0].reset();
-							     		//window.location.href="{% url 'crowdusers:deployment' %}"
-							     		alert("Deployment created successfully");
+							     		//$('#wizard-1')[0].reset();
+							     		window.location.href="{% url 'crowdusers:deployment' %}"
+							     		//alert("Deployment created successfully");
 							     	  }
 									}).fail(function(xhr, status, error){
 										console.log("error occured " + status + " error msg " + error);
