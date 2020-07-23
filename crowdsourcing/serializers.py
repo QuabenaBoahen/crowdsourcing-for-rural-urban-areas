@@ -65,3 +65,9 @@ class DeploymentSerializer(serializers.ModelSerializer):
                   'report_time_frame', 'report_response_bodies', 'report_video_link', 'report_views',
                   'deployment_number', 'report_platform', 'created_date', 'user',
                   'deployment_image', 'days_since_deployment', 'report_nature_values']
+
+
+class ReportNatureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReportNature
+        fields = '__all__'

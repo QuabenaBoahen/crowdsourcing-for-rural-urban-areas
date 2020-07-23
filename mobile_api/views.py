@@ -62,3 +62,9 @@ class DeploymentViewSet(viewsets.ModelViewSet):
                                         status=400)
         else:
             return JsonResponse({"error": '403', 'message': 'Invalid id for deployment'})
+
+
+class ReportNatureViewSet(viewsets.ModelViewSet):
+    queryset = ReportNature.objects.all()
+    serializer_class = ReportNatureSerializer
+    permission_classes = (AllowAny,)
