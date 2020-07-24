@@ -63,6 +63,12 @@ class DeploymentViewSet(viewsets.ModelViewSet):
         else:
             return JsonResponse({"error": '403', 'message': 'Invalid id for deployment'})
 
+    @action(detail=False, methods=['GET'], url_path='create_deployment')
+    def create_deployment(self, request):
+        report_title = request.data.get('report_brief_description', None)
+        print("data ", report_title)
+        return JsonResponse({"status": '200', 'data': report_title})
+
 
 class ReportNatureViewSet(viewsets.ModelViewSet):
     queryset = ReportNature.objects.all()
