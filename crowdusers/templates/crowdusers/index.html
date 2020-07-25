@@ -126,7 +126,8 @@
                       </p>
                        <p>
                          <h6>Report/Deployment location</h6>
-                          <div id="dep-location"></div>
+                         <span class="dep-loc"></span>
+                          {% comment %}<div id="dep-location"></div>{% endcomment %}
                       </p>
                        <p>
                          <h6>Report/Deployment date and time</h6>
@@ -198,9 +199,10 @@ $("#short-dep-description a").click( function(){
           $(".days-since-deployment").text(response.days_since_deployment);
           $(".dep-source").text(response.data.reporter_background);
           $(".dep-time-frame").text(response.data.report_time_frame);
+          $(".dep-loc").text(response.data.deployment_location);
           $(".dep-date-and-time").text(response.data.report_date + ", " + response.data.report_time);
 
-          _initMap(response.data.latitude, response.data.longitude);
+          //_initMap(response.data.latitude, response.data.longitude);
           $(".dep-images").attr("src", response.images.file);
 
        },
@@ -212,7 +214,7 @@ $("#short-dep-description a").click( function(){
     });
   });
   </script>
-<script type="text/javascript">
+{% comment %}<script type="text/javascript">
     function _initMap(latitude, longitude) {
         var currentLocation = {lat: Number(latitude), lng: Number(longitude)};
         var map = new google.maps.Map(document.getElementById('dep-location'), {
@@ -227,7 +229,7 @@ $("#short-dep-description a").click( function(){
 									});
 
     }
- </script>
+ </script>{% endcomment %}
  <script type="text/javascript">
     function initMap() {
 
@@ -272,8 +274,8 @@ $("#short-dep-description a").click( function(){
 
     }
  </script>
- <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtZeGCdqb5KqAG5ROpf1d6oUdAVwzTpyc&callback=_initMap">
-   </script>
+{% comment %} <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtZeGCdqb5KqAG5ROpf1d6oUdAVwzTpyc&callback=_initMap">
+   </script>{% endcomment %}
 <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtZeGCdqb5KqAG5ROpf1d6oUdAVwzTpyc&callback=initMap">
    </script>
 {% endblock %}

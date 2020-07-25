@@ -228,12 +228,14 @@
 								    cache: false
 								     }).done(function(data) {
 								     	//console.log(data);
-								     if(data.error==true){
+								     if(data.error==="true"){
 							          //get the error response and display appropriate msg to user
+                                         console.log(data.message);
+                                         alert("Error: Please make sure you supply all required fields");
 							     	   }else{
+								         alert("Success: " + data.message);
 							     		//$('#wizard-1')[0].reset();
-							     		window.location.href="{% url 'crowdusers:deployment' %}"
-							     		//alert("Deployment created successfully");
+							     		//window.location.href="{% url 'crowdusers:deployment' %}"
 							     	  }
 									}).fail(function(xhr, status, error){
 										console.log("error occured " + status + " error msg " + error);

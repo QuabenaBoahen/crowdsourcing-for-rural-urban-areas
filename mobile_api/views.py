@@ -63,11 +63,20 @@ class DeploymentViewSet(viewsets.ModelViewSet):
         else:
             return JsonResponse({"error": '403', 'message': 'Invalid id for deployment'})
 
-    @action(detail=False, methods=['GET'], url_path='create_deployment')
+    @action(detail=False, methods=['POST'], url_path='create_deployment')
     def create_deployment(self, request):
-        report_title = request.data.get('report_brief_description', None)
-        print("data ", report_title)
-        return JsonResponse({"status": '200', 'data': report_title})
+        report_brief_description = request.data.get('report_brief_description', None)
+        report_full_description = request.data.get('report_full_description', None)
+        reporter_background = request.data.get('reporter_background', None)
+        latitude = request.data.get('latitude', None)
+        longitude = request.data.get('longitude', None)
+        report_date = request.data.get('report_date', None)
+        report_time = request.data.get('report_time', None)
+        report_time_frame = request.data.get('report_time_frame', None)
+        report_response_bodies = request.data.get('report_response_bodies', None)
+        report_video_link = request.data.get('report_video_link', None)
+        print("data ", report_time)
+        return JsonResponse({"status": '200', 'data': report_time})
 
 
 class ReportNatureViewSet(viewsets.ModelViewSet):

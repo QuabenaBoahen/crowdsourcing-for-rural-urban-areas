@@ -76,11 +76,14 @@ def persist_deployment(request):
         user_deployment.report_platform = 'Web'
         user_deployment.deployment_location = CrowdSourcingUtils.get_location_from_latlng(form.cleaned_data['latitude'], form.cleaned_data['longitude'])
         user_deployment.save()
-        messages.add_message(request, messages.SUCCESS, 'Your deployment has been created successfully')
+        data = {'error': 'false', 'message': 'Your deployment has been created successfully'}
+        #messages.add_message(request, messages.SUCCESS, 'Your deployment has been created successfully')
         return redirect('crowdusers:deployment')
     else:
-        messages.add_message(request, messages.WARNING, form.errors)
-        return redirect('crowdusers:deployment')
+        #messages.add_message(request, messages.WARNING, form.errors)
+        data = {'error': 'true', 'message': form.errors}
+        return JsonResponse(data)
+        #return redirect('crowdusers:deployment')
 
 
 def persist_deployment_images(request, **kwargs):
