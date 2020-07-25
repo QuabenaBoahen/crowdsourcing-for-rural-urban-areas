@@ -76,8 +76,15 @@ class DeploymentViewSet(viewsets.ModelViewSet):
         report_time_frame = request.data.get('report_time_frame', None)
         report_response_bodies = request.data.get('report_response_bodies', None)
         report_video_link = request.data.get('report_video_link', None)
-        print("data ", report_nature)
-        return JsonResponse({"status": '200', 'data': report_nature})
+        report_platform = "Mobile"
+        report_user = User.objects.get(id=1)
+        deployment_location = CrowdSourcingUtils.get_location_from_latlng(latitude, longitude)
+        deployment = Deployment.objects.create(report_brief_description=report_brief_description, report_nature=report_nature,
+                                               report_full_description=report_full_description, reporter_background=reporter_background,
+                                               latitude=latitude, longitude=longitude, report_date=report_date, report_time=report_time,
+                                               report_time_frame=report_time_frame, report_response_bodies=report_response_bodies, report_video_link=report_video_link,
+                                               report_platform=report_platform, deployment_location=deployment_location, user=report_user)
+        return JsonResponse({"status": '200', 'data': deployment})
 
 
 class ReportNatureViewSet(viewsets.ModelViewSet):

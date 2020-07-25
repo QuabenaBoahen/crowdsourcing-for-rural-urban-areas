@@ -13,7 +13,7 @@ def index(request):
     deployment_details = {}
     for dep in Deployment.objects.all():
         deployment_details = {'location': dep.deployment_location, 'lat': dep.latitude,
-                                       'lng': dep.longitude}
+                              'lng': dep.longitude}
         deployment_location_details.append(deployment_details)
     context = {
         'index': 'true',
@@ -29,7 +29,8 @@ def get_single_deployment_details(request, **kwargs):
         if dep_pk:
             try:
                 single_deployment = Deployment.objects.get(pk=dep_pk)
-                single_deployment_images = DeploymentImages.objects.filter(deployment_number=single_deployment.deployment_number).first()
+                single_deployment_images = DeploymentImages.objects.filter(
+                    deployment_number=single_deployment.deployment_number).first()
                 days_since_deployment = CrowdSourcingUtils.days_since_deployment(single_deployment.report_date)
                 serializer = DeploymentSerializer(instance=single_deployment)
                 image_serializer = ImageSerializer(instance=single_deployment_images)
@@ -39,7 +40,8 @@ def get_single_deployment_details(request, **kwargs):
                     request.session['viewed_deployment_%s' % dep_pk] = True
                     single_deployment.report_views += 1
                     single_deployment.save()
-                return JsonResponse({"data": serializer.data, "images": image_serializer.data, 'days_since_deployment': days_since_deployment}, status=200)
+                return JsonResponse({"data": serializer.data, "images": image_serializer.data,
+                                     'days_since_deployment': days_since_deployment}, status=200)
             except Deployment.DoesNotExist:
                 return JsonResponse({"status": '404', 'error': 'No deployment found with the id %s ' % dep_pk},
                                     status=400)
@@ -74,16 +76,18 @@ def persist_deployment(request):
         user_deployment.deployment_number = random_deployment_number
         user_deployment.user = request.user
         user_deployment.report_platform = 'Web'
-        user_deployment.deployment_location = CrowdSourcingUtils.get_location_from_latlng(form.cleaned_data['latitude'], form.cleaned_data['longitude'])
+        user_deployment.deployment_location = CrowdSourcingUtils.get_location_from_latlng(form.cleaned_data['latitude'],
+                                                                                          form.cleaned_data[
+                                                                                              'longitude'])
         user_deployment.save()
         data = {'error': 'false', 'message': 'Your deployment has been created successfully'}
-        #messages.add_message(request, messages.SUCCESS, 'Your deployment has been created successfully')
-        return redirect('crowdusers:deployment')
+        # messages.add_message(request, messages.SUCCESS, 'Your deployment has been created successfully')
+        return JsonResponse(data)
     else:
-        #messages.add_message(request, messages.WARNING, form.errors)
+        # messages.add_message(request, messages.WARNING, form.errors)
         data = {'error': 'true', 'message': form.errors}
         return JsonResponse(data)
-        #return redirect('crowdusers:deployment')
+        # return redirect('crowdusers:deployment')
 
 
 def persist_deployment_images(request, **kwargs):
@@ -100,4 +104,3 @@ def persist_deployment_images(request, **kwargs):
     else:
         data = {'is_valid': False}
     return JsonResponse(data)
-
