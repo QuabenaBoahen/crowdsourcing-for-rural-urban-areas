@@ -66,6 +66,7 @@ class DeploymentViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['POST'], url_path='create_deployment')
     def create_deployment(self, request):
         report_brief_description = request.data.get('report_brief_description', None)
+        report_nature = request.data.get('report_nature', None)
         report_full_description = request.data.get('report_full_description', None)
         reporter_background = request.data.get('reporter_background', None)
         latitude = request.data.get('latitude', None)
@@ -75,8 +76,8 @@ class DeploymentViewSet(viewsets.ModelViewSet):
         report_time_frame = request.data.get('report_time_frame', None)
         report_response_bodies = request.data.get('report_response_bodies', None)
         report_video_link = request.data.get('report_video_link', None)
-        print("data ", report_time)
-        return JsonResponse({"status": '200', 'data': report_time})
+        print("data ", report_nature)
+        return JsonResponse({"status": '200', 'data': report_nature})
 
 
 class ReportNatureViewSet(viewsets.ModelViewSet):

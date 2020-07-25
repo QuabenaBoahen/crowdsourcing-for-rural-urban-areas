@@ -21,6 +21,12 @@ class UserSerializer(serializers.ModelSerializer):
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = DeploymentImages
+        fields = ['file']
+
+
+class DeploymentImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DeploymentImages
         fields = '__all__'
 
 
