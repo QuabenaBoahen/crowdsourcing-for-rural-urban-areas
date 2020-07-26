@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="53d30f56-6ebc-4631-9258-57977eddd4a7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crowdusers/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/crowdusers/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdusers/templates/crowdusers/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/crowdusers/templates/crowdusers/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobile_api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/mobile_api/views.py" afterDir="false" />
     </list>
@@ -83,7 +83,7 @@
       <workItem from="1593374825973" duration="12365000" />
       <workItem from="1593902977138" duration="57315000" />
       <workItem from="1595020716098" duration="75000" />
-      <workItem from="1595020814639" duration="56015000" />
+      <workItem from="1595020814639" duration="61885000" />
     </task>
     <servers />
   </component>
@@ -91,10 +91,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="436" y="143" width="524" height="505" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1594550750986">
+    <state x="436" y="143" width="524" height="505" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1595726132366">
       <screen x="50" y="27" width="1316" height="741" />
     </state>
-    <state x="436" y="143" width="524" height="505" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/50.27.1316.741@50.27.1316.741" timestamp="1594550750986" />
+    <state x="436" y="143" width="524" height="505" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/50.27.1316.741@50.27.1316.741" timestamp="1595726132366" />
     <state x="486" y="152" width="424" height="486" key="FileChooserDialogImpl" timestamp="1593910969105">
       <screen x="50" y="27" width="1316" height="741" />
     </state>

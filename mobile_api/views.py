@@ -20,10 +20,10 @@ class UsersViewSet(viewsets.ModelViewSet):
         password = request.data.get('password', None)
         if User.objects.filter(email=email).exists():
             return Response({"message": 'An account with email %s ' % email +
-                                 ' already exist. If this is your email please login or reset your password on the web app', "status": "401", "error": "true"}, status=200)
+                                 ' already exist.', "status": "401", "error": "true"}, status=200)
         elif User.objects.filter(username=username).exists():
             return Response({"message": 'An account with username %s ' % username +
-                                 ' already exist. Please choose a different username', "status": "402", "error": "true"},
+                                 ' already exist.', "status": "402", "error": "true"},
                                 status=200)
         else:
             user = User.objects.create_user(email=email,

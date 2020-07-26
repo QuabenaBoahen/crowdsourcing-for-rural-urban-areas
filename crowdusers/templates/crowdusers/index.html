@@ -33,7 +33,7 @@
             <li class="nav-item">
               <a class="nav-link" href="#ipsum-left" data-toggle="tab" style="color: grey !important;">Deployments</a>
             </li>
-            <br/><br/>
+            <br/>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'signup' %}" style="color: grey !important;">Sign Up</a>
             </li>
@@ -183,6 +183,7 @@ $("#short-dep-description a").click( function(){
 
     let dep_pk = $(this).find('input:last').val();
     let dep_nature = $(this).find('input:first').val();
+    let image_src = "";
 
     $.ajax({
        method: 'get',
@@ -203,7 +204,12 @@ $("#short-dep-description a").click( function(){
           $(".dep-date-and-time").text(response.data.report_date + ", " + response.data.report_time);
 
           //_initMap(response.data.latitude, response.data.longitude);
-          $(".dep-images").attr("src", response.images.file);
+          if(response.images.file===null){
+                 image_src = "/media/images/crowdsourcing-img.jpg";
+             }else{
+                 image_src = response.images.file;
+              }
+          $(".dep-images").attr("src", image_src);
 
        },
        error: function (response) {
