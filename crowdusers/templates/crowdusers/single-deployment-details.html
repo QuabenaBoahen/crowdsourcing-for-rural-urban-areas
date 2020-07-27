@@ -1,0 +1,90 @@
+{% extends 'crowdusers/fragments/base-index.html' %}
+{% block title %} Crowdsourcing for Rural Urban Areas - Deployment details {% endblock %}
+
+{% block content %}
+
+<!-- ################################################################################################ -->
+	<!-- ################################################################################################ -->
+	<!-- ################################################################################################ -->
+	<!-- Top Background Image Wrapper -->
+	<div class="bgded overlay"
+		style="background-image: url('/crowdusers/static/crowdusers/images/demo/backgrounds/cs_b.jpg');">
+		<!-- ################################################################################################ -->
+        {% include 'crowdusers/fragments/nav.html' %}
+		<!-- ################################################################################################ -->
+		<!-- ################################################################################################ -->
+		<!-- ################################################################################################ -->
+		<div id="pageintro" class="hoc clear" style="background-color: inherit;">
+			<!-- ################################################################################################ -->
+			<div class="col-sm-12 col-lg-12 col-md-12">
+              <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+        </div>
+      </div>
+      <br/><br/>
+      <div class="row">
+        <div class="col-md-3">
+
+        </div>
+
+        <div class="col-md-9">
+          <div class="container">
+          <article>
+              	 <div class="col-7">
+                   <div class="card row">
+                  <div class="card-body">
+                      <p><span>published </span> <span>by <i><span class="dep-user">{{ deployment.user }}</span></i></span></p>
+                      <p>
+                    <span class="card-subtitle mb-2 text-muted">via <i><span class="dep-platform">{{ deployment.report_platform }}</span></i></span>,
+                      <span class="card-subtitle mb-2 text-muted"><span class="days-since-deployment">{{ days_since_deployment }}</span> </span>
+                      </p>
+                      <h6>Title</h6>
+                      <h3 class="card-title dep-short-desc">{{ deployment.report_brief_description }}</h3>
+                      <p>
+                      <h6>Description of report</h6>
+                      <span class="card-text dep-full-desc">{{ deployment.report_full_description }}</span>
+                      </p>
+                      <p>
+                          <h6>Nature of report</h6>
+                      {% load admin_extras %}
+                          <span class="dep-nature">{{ deployment.report_nature|list_report_nature }}</span>
+                      </p>
+                      <p>
+                         <h6>Source of this report</h6>
+                          <span class="dep-source">{{ deployment.reporter_background }}</span>
+                      </p>
+                       <p>
+                         <h6>How long has this report lasted</h6>
+                          <span class="dep-time-frame">{{ deployment.report_time_frame }}</span>
+                      </p>
+                       <p>
+                         <h6>Report location</h6>
+                         <span class="dep-loc">{{ deployment.deployment_location }}</span>
+                      </p>
+                       <p>
+                         <h6>Report date and time</h6>
+                          <span class="dep-date-and-time">{{ deployment.report_date }}, {{ deployment.report_time }}</span>
+                      </p>
+                       <p>
+                         <h6>Report image(s)</h6>
+                          <img class="dep-images" width="400" height="170"
+                               src="{{ MEDIA_URL }}/media/{{ image.file }}" alt="Post Image"/>
+                      </p><br/><br/>
+                  </div>
+                </div>
+                  </div>
+          </article>
+          </div>
+        </div>
+      </div>
+       </div>
+			</div>
+			<!-- ################################################################################################ -->
+		</div>
+		<!-- ################################################################################################ -->
+	</div>
+	<!-- End Top Background Image Wrapper -->
+
+{% include 'crowdusers/fragments/footer-index.html' %}
+{% endblock %}

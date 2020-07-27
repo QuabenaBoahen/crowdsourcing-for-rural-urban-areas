@@ -6,6 +6,8 @@ from django.views.static import serve
 from .views import *
 
 
+admin.site.site_header = 'Peda Reporter'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('crowdusers.urls')),

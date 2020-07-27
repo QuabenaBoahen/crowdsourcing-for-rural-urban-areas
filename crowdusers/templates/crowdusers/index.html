@@ -101,7 +101,12 @@
                   <div class="col-7" id="dep-details">
                    <div class="card row">
                   <div class="card-body">
-                      <p><span>published </span> <span>by <i><span class="dep-user"></span></i></span></p>
+                      <p><span>published </span> <span>by <i><span class="dep-user"></span></i></span> &nbsp;&nbsp;&nbsp;
+                          <a href="#" href="#" data-toggle="modal" data-target="#myModal2" class="btn btn-success btn-sm forward-to-body" aria-pressed="true">
+                              <i class="fa-fw fa fa-forward"></i></a>
+                          {% load social_share %}
+                          &nbsp; {% post_to_facebook 'http://198.22.162.119:8081/' "Share on Facebook" %}
+                          {% post_to_whatsapp 'http://198.22.162.119:8081/' "Share via WhatsApp" %}</p>
                       <p>
                     <span class="card-subtitle mb-2 text-muted">via <i><span class="dep-platform"></span></i></span>,
                       <span class="card-subtitle mb-2 text-muted"><span class="days-since-deployment"></span> </span>
@@ -155,6 +160,39 @@
 	</div>
 	<!-- End Top Background Image Wrapper -->
 {% include 'crowdusers/fragments/footer-index.html' %}
+
+   <!-- forward indenture modal -->
+        <form action="{% url 'crowdusers:forward_report_to_response_body' %}" method="post">
+            {% csrf_token %}
+     <div class="modal" tabindex="-1" role="dialog" id="myModal2">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Forward this report to a response body</h5>
+        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+           <div class="col-lg-12">
+          <div class="form-row">
+               <div class="form-group col-md-12">
+                   <input type="hidden" name="dep_id" id="dep_id"/>
+                  <label for="response_body_mail">Select Response body</label>
+                   {{ form.response_bodies }}
+            </div>
+          </div>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <input type="submit" class="btn btn-success" value="Forward Report"/>
+        <button type="button" class="btn btn-danger close-modal" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+   </div>
+    </form>
+
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -210,6 +248,8 @@ $("#short-dep-description a").click( function(){
                  image_src = response.images.file;
               }
           $(".dep-images").attr("src", image_src);
+
+          $("#dep_id").val(response.data.id);
 
        },
        error: function (response) {

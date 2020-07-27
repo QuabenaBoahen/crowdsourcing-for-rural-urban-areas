@@ -9,8 +9,6 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav text-info" style="flex-direction: row !important;font-size: 1.7rem !important;font-weight: 400 !important;
     line-height: 0.8 !important;text-align: left !important;padding-right: 8.5rem; !important;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serifApple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;">
-      <a class="nav-item nav-link {% if features %} active {% endif %}" href="{% url 'crowdusers:index' %}" style="color: rgba(255,255,255,.5) !important; padding-right: .5rem !important;
-padding-left: .5rem !important;">Features <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link {% if deployment %} active {% endif %}" href="{% url 'crowdusers:deployment' %}" style="color: rgba(255,255,255,.5) !important; padding-right: .5rem !important;
 padding-left: .5rem !important;">Discover deployments</a>
       <a class="nav-item nav-link {% if about %} active {% endif %}" href="{% url 'crowdusers:about' %}" style="color: rgba(255,255,255,.5) !important; padding-right: .5rem !important;

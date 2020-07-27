@@ -49,6 +49,18 @@ class CrowdSourcingUtils:
         to = to
         mail.send_mail(subject, plain_message, from_email, [to], html_message=html_message)
 
+    def send_report_to_response_body_email(self, from_email, to, deployment_details, base_uri):
+        context = {
+            'base_uri': base_uri,
+            'deployment_details': deployment_details
+        }
+        subject = 'There\'s a report that requires an immediate action from your outfit'
+        html_message = render_to_string('crowdusers/forward-report-template.html', context)
+        plain_message = strip_tags(html_message)
+        from_email = 'Crowdsourcing for Rural Urban Areas <' + from_email + '>'
+        to = to
+        mail.send_mail(subject, plain_message, from_email, [to], html_message=html_message)
+
     def days_since_deployment(deployment_date):
         total_days_since_deployment = ''
         date_format = '%Y-%m-%d'

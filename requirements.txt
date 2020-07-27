@@ -3,5 +3,6 @@ djangorestframework
 requests
 django_cron
 django-cors-headers
+django-social-share
 
 

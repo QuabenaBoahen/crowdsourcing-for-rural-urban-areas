@@ -2,6 +2,7 @@ import json
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 from crowdsourcing.serializers import DeploymentSerializer, ImageSerializer
 from .forms import *
 from django.contrib import messages
@@ -11,6 +12,7 @@ from .utils import CrowdSourcingUtils
 def index(request):
     deployment_location_details = []
     deployment_details = {}
+    form = ForwardToResponseBodyForm()
     for dep in Deployment.objects.all():
         deployment_details = {'location': dep.deployment_location, 'lat': dep.latitude,
                               'lng': dep.longitude}
@@ -18,7 +20,8 @@ def index(request):
     context = {
         'index': 'true',
         'deployments': CrowdSourcingUtils.paginate_deployments(request, Deployment.objects.all()),
-        'deployment_location_details': json.dumps(deployment_location_details)
+        'deployment_location_details': json.dumps(deployment_location_details),
+        'form': form
     }
     return render(request, 'crowdusers/index.html', context)
 
@@ -55,6 +58,20 @@ def about(request):
 
 def contact(request):
     return render(request, 'crowdusers/contact-us.html', {'contact': 'true'})
+
+
+def single_deployment_details(request, **kwargs):
+    dep_pk = kwargs.get('dep_pk', None)
+    dep = Deployment.objects.get(pk=dep_pk)
+    single_deployment_images = DeploymentImages.objects.filter(
+        deployment_number=dep.deployment_number).first()
+    days_since_deployment = CrowdSourcingUtils.days_since_deployment(dep.report_date)
+    context = {
+        'deployment': dep,
+        'image': single_deployment_images,
+        'days_since_deployment': days_since_deployment
+    }
+    return render(request, 'crowdusers/single-deployment-details.html', context)
 
 
 @login_required
@@ -104,3 +121,12 @@ def persist_deployment_images(request, **kwargs):
     else:
         data = {'is_valid': False}
     return JsonResponse(data)
+
+
+def forward_report_to_response_body(request):
+    dep_id = request.POST['dep_id']
+    response_body = request.POST['response_bodies']
+    dep = Deployment.objects.get(pk=dep_id)
+    CrowdSourcingUtils.send_report_to_response_body_email(forward_report_to_response_body, settings.EMAIL_HOST_USER, response_body, dep, settings.APP_BASE_URI)
+    messages.success(request, 'Report has been forwarded to %s ' % response_body)
+    return redirect('crowdusers:index')

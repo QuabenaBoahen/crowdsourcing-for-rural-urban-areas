@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'mobile_api',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_social_share',
     'corsheaders',
 ]
 

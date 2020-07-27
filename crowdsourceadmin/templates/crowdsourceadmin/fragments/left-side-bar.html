@@ -31,6 +31,7 @@
                                                        class="pull-right"><i class="zmdi zmdi-caret-down zmdi-hc-lg"></i></span></a>
                                                 <ul class="list-unstyled">
                                                 <li><a href="{% url 'crowdsourceadmin:deployments' %}" class="waves-effect">Created Deployments</a></li>
+                                                <li><a href="{% url 'crowdsourceadmin:response_bodies' %}" class="waves-effect">Response Bodies</a></li>
                                                 {% load admin_extras %}
                                                 {% if request.user|has_group:'Basic Admin' %}
                                                 <li><a href="" class="waves-effect">Categories</a></li>

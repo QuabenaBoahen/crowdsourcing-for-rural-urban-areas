@@ -33,3 +33,31 @@ class CustomUserForm(ModelForm):
         model = CustomUser
         fields = ['email', 'display_name', 'password']
         labels = {'display_name': 'Display Name'}
+
+
+class ResponseBodyForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ResponseBodyForm, self).__init__(*args, **kwargs)
+        self.fields['password'].widget.attrs['autocomplete'] = 'off'
+
+        for name in self.fields.keys():
+            self.fields[name].widget.attrs.update({
+                'class': 'form-control',
+                'required': 'required',
+            })
+
+    class Meta:
+        model = CustomUser
+        fields = ['email', 'display_name', 'password']
+        labels = {'display_name': 'Response Body Name'}
+
+
+class ForwardToResponseBodyForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['display_name', 'email', 'response_bodies']
+        widgets = {
+            'response_bodies': forms.Select(choices=CustomUser.RESPONSE_BODY_NAMES,
+                                             attrs={'class': 'form-control', 'required': 'required'}),
+        }

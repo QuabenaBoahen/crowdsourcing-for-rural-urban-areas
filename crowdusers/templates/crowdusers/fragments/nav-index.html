@@ -6,7 +6,6 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav text-info">
-      <a class="nav-item nav-link {% if features %} active {% endif %}" href="{% url 'crowdusers:index' %}">Features <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link {% if deployment %} active {% endif %}" href="{% url 'crowdusers:deployment' %}">Discover deployments</a>
       <a class="nav-item nav-link {% if about %} active {% endif %}" href="{% url 'crowdusers:about' %}">About</a>
       <a class="nav-item nav-link {% if contact %} active {% endif %}" href="{% url 'crowdusers:contact' %}">Contact Us</a>
