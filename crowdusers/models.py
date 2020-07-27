@@ -45,7 +45,7 @@ class CustomUser(User):
     RESPONSE_BODY_NAMES = [
         ('mavisabotsi05@gmail.com', 'Ghana Police'),
         ('mavisabotsi05@gmail.com', 'NADMO'),
-        ('quabenaboahen@gmail.com', 'Emergency Medical Technicians'),
+        ('mavisabotsi05@gmail.com', 'Emergency Medical Technicians'),
     ]
     display_name = models.CharField(max_length=55, blank=True)
     is_response_body = models.BooleanField(default=False, blank=True)
@@ -53,5 +53,8 @@ class CustomUser(User):
 
     def __str__(self):
         return self.display_name
+
+    class Meta:
+        verbose_name = 'Response Body'
 
 
