@@ -43,9 +43,9 @@ class DeploymentImages(models.Model):
 
 class CustomUser(User):
     RESPONSE_BODY_NAMES = [
-        ('mavisabotsi05@gmail.com', 'Ghana Police'),
-        ('mavisabotsi05@gmail.com', 'NADMO'),
-        ('mavisabotsi05@gmail.com', 'Emergency Medical Technicians'),
+        ('mavissewornu05@gmail.com', 'Ghana Police'),
+        ('mavissewornu05@gmail.com', 'NADMO'),
+        ('mavissewornu05@gmail.com', 'Emergency Medical Technicians'),
     ]
     display_name = models.CharField(max_length=55, blank=True)
     is_response_body = models.BooleanField(default=False, blank=True)

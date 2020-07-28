@@ -13,8 +13,8 @@
 padding-left: .5rem !important;">Discover deployments</a>
       <a class="nav-item nav-link {% if about %} active {% endif %}" href="{% url 'crowdusers:about' %}" style="color: rgba(255,255,255,.5) !important; padding-right: .5rem !important;
 padding-left: .5rem !important;">About</a>
-      <a class="nav-item nav-link {% if contact %} active {% endif %}" href="{% url 'crowdusers:contact' %}" style="color: rgba(255,255,255,.5) !important; padding-right: .5rem !important;
-padding-left: .5rem !important;">Contact Us</a>
+      {% comment %}<a class="nav-item nav-link {% if contact %} active {% endif %}" href="{% url 'crowdusers:contact' %}" style="color: rgba(255,255,255,.5) !important; padding-right: .5rem !important;
+padding-left: .5rem !important;">Contact Us</a>{% endcomment %}
       {% if not request.user.is_authenticated %}
         <a class="nav-item nav-link" href="{% url 'login' %}" style="color: rgba(255,255,255,.5) !important; padding-right: .5rem !important;
 padding-left: .5rem !important;">Login</a>

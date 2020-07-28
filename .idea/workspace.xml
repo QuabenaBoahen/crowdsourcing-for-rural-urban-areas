@@ -3,9 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="53d30f56-6ebc-4631-9258-57977eddd4a7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crowdsourcing/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/crowdsourcing/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdsourceadmin/templates/crowdsourceadmin/deployments.html" beforeDir="false" afterPath="$PROJECT_DIR$/crowdsourceadmin/templates/crowdsourceadmin/deployments.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdsourceadmin/templates/crowdsourceadmin/response-bodies.html" beforeDir="false" afterPath="$PROJECT_DIR$/crowdsourceadmin/templates/crowdsourceadmin/response-bodies.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crowdusers/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/crowdusers/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crowdusers/templates/crowdusers/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/crowdusers/templates/crowdusers/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdusers/templates/crowdusers/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/crowdusers/templates/crowdusers/about.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdusers/templates/crowdusers/fragments/nav-index.html" beforeDir="false" afterPath="$PROJECT_DIR$/crowdusers/templates/crowdusers/fragments/nav-index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crowdusers/templates/crowdusers/fragments/nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/crowdusers/templates/crowdusers/fragments/nav.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -84,7 +87,7 @@
       <workItem from="1593374825973" duration="12365000" />
       <workItem from="1593902977138" duration="57315000" />
       <workItem from="1595020716098" duration="75000" />
-      <workItem from="1595020814639" duration="87681000" />
+      <workItem from="1595020814639" duration="91109000" />
     </task>
     <servers />
   </component>

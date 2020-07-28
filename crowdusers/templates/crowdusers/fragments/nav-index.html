@@ -8,7 +8,7 @@
     <div class="navbar-nav text-info">
       <a class="nav-item nav-link {% if deployment %} active {% endif %}" href="{% url 'crowdusers:deployment' %}">Discover deployments</a>
       <a class="nav-item nav-link {% if about %} active {% endif %}" href="{% url 'crowdusers:about' %}">About</a>
-      <a class="nav-item nav-link {% if contact %} active {% endif %}" href="{% url 'crowdusers:contact' %}">Contact Us</a>
+      {% comment %}<a class="nav-item nav-link {% if contact %} active {% endif %}" href="{% url 'crowdusers:contact' %}">Contact Us</a>{% endcomment %}
     </div>
 
    <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">

@@ -50,7 +50,7 @@
 											<th>Report Time Frame</th>
 											<th>Video Link</th>
 											<th>Added By</th>
-											<th>Actions</th>
+											{% comment %}<th>Actions</th>{% endcomment %}
 										</tr>
 									</thead>
 									<tbody>
@@ -70,7 +70,7 @@
                                             <td>{% if deployment.report_video_link|length < 1 %} No video link for this deployment {% else %}
                                                 <a href="{{ deployment.report_video_link }}" target="_blank">{{ deployment.report_video_link }}</a> {% endif %}</td>
 										  <td>{{ deployment.user.username }}</td>
-                                          <td>
+                                       {% comment %}   <td>
                                               <a href="#" class="on-default update-post" data-balloon="Edit post details" data-balloon-pos="up"><i class="fa fa-edit"></i></a>
                                               {% if post.comment_set.count > 0 %}&nbsp;
                                               <a href="" class="on-default" data-balloon="View comments" data-balloon-pos="up"><i class="fa fa-eye"></i></a>
@@ -79,7 +79,7 @@
 												data-balloon="Delete post" data-balloon-pos="left">
                                                   <i class="fa fa-trash-o"></i>
                                               </a>
-                                          </td>
+                                          </td>{% endcomment %}
                                         </tr>
                                     {% endfor %}
 									</tbody>
